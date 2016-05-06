@@ -1,0 +1,12 @@
+{
+  "name": "polymer-native-ios-generator",
+  "version": "0.1.0",
+  "description": "Polymer native iOS project generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["yeoman-generator"],
+  "author": "",
+  "license": "ISC"
+}

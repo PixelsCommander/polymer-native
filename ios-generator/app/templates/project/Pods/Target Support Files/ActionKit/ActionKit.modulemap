@@ -1,0 +1,6 @@
+framework module ActionKit {
+  umbrella header "ActionKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
