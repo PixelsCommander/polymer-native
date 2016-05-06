@@ -58,4 +58,4 @@ button {
 </body>
 ```
 
-Will result in app looking in the same way in browser and in device emulator. But for browser all controls are web and for mobile they are native which results in native look and feel for user.
+Will result in app looking in the same way in browser and on mobile device or emulator but the difference is that in browser all controls are web and on mobile UI is native which leads to higher user satisfaction without additional job done.
