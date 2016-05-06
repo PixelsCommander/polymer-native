@@ -1,5 +1,5 @@
-Web Components based native UI framework for mobile
-===================================================
+Web Components based native UI framework
+========================================
 
 No new conceptions. Use HTML/CSS which you know so good to develop completely native applications.
 
