@@ -54,7 +54,10 @@ class PNUtils: NSObject {
     }
     
     static func tagNameToClass(tagName: NSString) -> NSObject.Type {
-        let className = "CN_hello_world." + (PNUtils.tagNameToClassName(tagName) as String)
+        var bundleName: String = NSBundle.mainBundle().infoDictionary!["CFBundleName"] as! String
+        bundleName = bundleName.stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        
+        let className = bundleName + "." + (PNUtils.tagNameToClassName(tagName) as String)
         let anyobjectype : AnyObject.Type = NSClassFromString(className as String)!
         let nsobjectype : NSObject.Type = anyobjectype as! NSObject.Type
         

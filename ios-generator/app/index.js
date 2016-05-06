@@ -4,6 +4,8 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
 
+var TEMPLATING_PREFIX = 'polymer-native-template';
+
 module.exports = yeoman.Base.extend({
 
     constructor: function () {
@@ -34,24 +36,24 @@ module.exports = yeoman.Base.extend({
         );
 
         this.fs.copy(
-            this.templatePath(path.join('./project', 'projectName', '**', '*.png')),
+            this.templatePath(path.join('./project', TEMPLATING_PREFIX, '**', '*.png')),
             this.destinationPath(path.join('./ios/', this.name))
         );
 
         this.fs.copyTpl(
-            [this.templatePath(path.join('./project/', 'projectName', '**', '*')), '!**/*.png'],
+            [this.templatePath(path.join('./project/', TEMPLATING_PREFIX, '**', '*')), '!**/*.png'],
             this.destinationPath(path.join('./ios/', this.name)),
             this
         );
 
         this.fs.copyTpl(
-            this.templatePath(path.join('./project/', 'projectName.xcodeproj', '**', '*')),
+            this.templatePath(path.join('./project/', TEMPLATING_PREFIX + '.xcodeproj', '**', '*')),
             this.destinationPath(path.join('./ios/', this.name + '.xcodeproj')),
             this
         );
 
         this.fs.copyTpl(
-            this.templatePath(path.join('./project/', 'projectName.xcworkspace', '**', '*')),
+            this.templatePath(path.join('./project/', TEMPLATING_PREFIX + '.xcworkspace', '**', '*')),
             this.destinationPath(path.join('./ios/', this.name + '.xcworkspace')),
             this
         );

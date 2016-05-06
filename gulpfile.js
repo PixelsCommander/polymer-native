@@ -4,8 +4,12 @@ var BUNDLE_NAME = 'polymer-native',
     path = require('path'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglifyjs'),
+    clean = require('gulp-clean'),
+    copy = require('gulp-copy'),
+    replace = require('gulp-replace'),
     watch = require('gulp-watch'),
     karma = require('karma'),
+    sequence = require('gulp-sequence'),
     karmaParseConfig = require('karma/lib/config').parseConfig;
 
 gulp.task('build', function () {
@@ -59,10 +63,19 @@ gulp.task('develop', function() {
     });
 });
 
-gulp.task('copylibrary', function() {
-    watch('./libraries/js/src/*.js', function(){
-        gulp.run(['build'/*, 'test'*/])
-    });
+gulp.task('cleantemplate', function() {
+    return gulp.src('./ios-generator/app/templates/project', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('insertvarsintemplate', function() {
+    return gulp.src(path.join('./libraries/ios/polymer-native-template/','**/*'))
+        .pipe(replace('polymer-native-template', '<%= name %>'))
+        .pipe(gulp.dest('./ios-generator/app/templates/project'));
+});
+
+gulp.task('updatetemplate', function(){
+    return sequence('cleantemplate', 'insertvarsintemplate');
 });
 
 gulp.task('default', ['test-dev', 'develop']);
