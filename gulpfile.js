@@ -10,7 +10,8 @@ var BUNDLE_NAME = 'polymer-native',
     watch = require('gulp-watch'),
     karma = require('karma'),
     sequence = require('gulp-sequence'),
-    karmaParseConfig = require('karma/lib/config').parseConfig;
+    karmaParseConfig = require('karma/lib/config').parseConfig,
+    bump = require('gulp-bump');
 
 gulp.task('build', function () {
     gulp.src(['node_modules/webcomponents.js/webcomponents-lite.min.js', './libraries/js/src/pn-utils.js', './libraries/js/src/pn-base-element.js', './libraries/js/src/elements/*.js'])
@@ -76,6 +77,12 @@ gulp.task('insertvarsintemplate', function() {
 
 gulp.task('updatetemplate', function(){
     return sequence('cleantemplate', 'insertvarsintemplate');
+});
+
+gulp.task('bump', function(){
+    gulp.src('./package.json')
+        .pipe(bump({type:'minor'}))
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('default', ['test-dev', 'develop']);

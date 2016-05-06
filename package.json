@@ -1,6 +1,6 @@
 {
   "name": "polymer-native",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Native bindings for web components and Polymer framework",
   "main": "index.js",
   "scripts": {
@@ -30,12 +30,13 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-uglifyjs": "^0.6.2",
+    "gulp-bump": "^2.1.0",
     "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
     "gulp-copy": "0.0.2",
     "gulp-replace": "^0.5.4",
     "gulp-sequence": "^0.4.5",
+    "gulp-uglifyjs": "^0.6.2",
     "gulp-watch": "^4.3.5",
     "install": "^0.6.1",
     "jasmine-core": "^2.4.1",
