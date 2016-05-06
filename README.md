@@ -7,20 +7,8 @@ Motivation
 ----------
 Currently mobile devices are amazingly powerful and mobile web applications are fast enough however controls behaviour is different between web and native. Experienced user notice this difference immideately which results in lower user satisfaction for web based apps because they got used to consistant UI behaviour on mobile platform of their choice. This can be solved by creating native facade for natvie components.
 
-Starting new project
---------------------
-```bash
-    polymer-native init MyTestProject
-```
-
-Running project on iOS
----------------
-```bash
-    polymer-native run
-```
-
-Example app
------------
+Example app index.html
+----------------------
 
 ```html
 
@@ -67,3 +55,15 @@ Result iOS
 Result Chrome
 -------------
 ![Polymer Native app sample](https://github.com/PixelsCommander/polymer-native/blob/master/figures/app-screen-browser.png?raw=true)
+
+Initializing new project
+--------------------
+```bash
+    polymer-native init MyTestProject
+```
+
+Running project on iOS
+----------------------
+```bash
+    polymer-native run
+```
