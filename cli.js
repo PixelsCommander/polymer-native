@@ -36,7 +36,7 @@ function init(argsOrName) {
         : [argsOrName].concat(process.argv.slice(4));
 
     var generator = env.create('ios-generator:app', {args: args});
-    generator.destinationRoot(__dirname);
+    generator.destinationRoot('./');
     generator.run();
 }
 
