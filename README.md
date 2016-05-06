@@ -3,7 +3,7 @@
 Native UI framework based on Web Components
 ===========================================
 
-No new conceptions. Use HTML/CSS which you know so good to develop completely native applications for mobile platforms.
+No new conceptions. Feel free to use HTML/CSS which you know so good to develop completely native applications for mobile platforms.
 
 Motivation
 ----------
