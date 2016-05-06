@@ -20,41 +20,41 @@ module.exports = yeoman.Base.extend({
 
         this.fs.copy(
             [this.templatePath(path.join('./project/Pods', '**', '*'))],
-            this.destinationPath(path.join('./ios/Pods'))
+            this.destinationPath(path.join('ios/Pods'))
         );
 
         this.fs.copyTpl(
             [this.templatePath(path.join('./project/', '*'))],
-            this.destinationPath(path.join('./ios/')),
+            this.destinationPath(path.join('ios/')),
             this
         );
 
         this.fs.copyTpl(
-            [this.templatePath(path.join('./npm/', '*'))],
+            [this.templatePath(path.join('npm/', '*'))],
             this.destinationPath(),
             this
         );
 
         this.fs.copy(
             this.templatePath(path.join('./project', TEMPLATING_PREFIX, '**', '*.png')),
-            this.destinationPath(path.join('./ios/', this.name))
+            this.destinationPath(path.join('ios/', this.name))
         );
 
         this.fs.copyTpl(
             [this.templatePath(path.join('./project/', TEMPLATING_PREFIX, '**', '*')), '!**/*.png'],
-            this.destinationPath(path.join('./ios/', this.name)),
+            this.destinationPath(path.join('ios/', this.name)),
             this
         );
 
         this.fs.copyTpl(
             this.templatePath(path.join('./project/', TEMPLATING_PREFIX + '.xcodeproj', '**', '*')),
-            this.destinationPath(path.join('./ios/', this.name + '.xcodeproj')),
+            this.destinationPath(path.join('ios/', this.name + '.xcodeproj')),
             this
         );
 
         this.fs.copyTpl(
             this.templatePath(path.join('./project/', TEMPLATING_PREFIX + '.xcworkspace', '**', '*')),
-            this.destinationPath(path.join('./ios/', this.name + '.xcworkspace')),
+            this.destinationPath(path.join('ios/', this.name + '.xcworkspace')),
             this
         );
     },

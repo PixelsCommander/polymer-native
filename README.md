@@ -1,3 +1,5 @@
+![Polymer Native](https://github.com/PixelsCommander/polymer-native/blob/master/figures/logo.png?raw=true)
+
 Web Components based native UI framework
 ========================================
 

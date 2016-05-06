@@ -1,6 +1,6 @@
 {
   "name": "polymer-native",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Native bindings for web components and Polymer framework",
   "main": "index.js",
   "scripts": {
@@ -21,9 +21,6 @@
   "author": "Denis Radin aka PixelsCommander",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-uglifyjs": "^0.6.2",
     "minimist": "^1.2.0",
     "promise": "^7.1.1",
     "webcomponents.js": "^0.7.21",
@@ -32,6 +29,9 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglifyjs": "^0.6.2",
     "gulp-clean": "^0.3.2",
     "gulp-copy": "0.0.2",
     "gulp-replace": "^0.5.4",
