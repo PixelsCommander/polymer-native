@@ -7,44 +7,49 @@ Motivation
 ----------
 Currently mobile devices are amazingly powerful and mobile web applications are fast enough however controls behaviour is different between web and native. Experienced user notice this difference immideately which results in lower user satisfaction for web based apps because they got used to consistant UI behaviour on mobile platform of their choice. This can be solved by creating native facade for natvie components.
 
+Starting new project
+--------------------
+```bash
+    polymer-native init MyTestProject
+```
 
-Code example
-------------
+Running project on iOS
+---------------
+```bash
+    polymer-native run
+```
+
+Example app
+-----------
 
 ```html
 
-body {
-    margin: 20px;
-}
+<style>
+    body {
+        margin: 20px;
+    }
 
-#icon {
-    display: inline-block;
-    margin-bottom: 20px;
-}
+    #icon {
+        display: inline-block;
+        margin-bottom: 20px;
+    }
 
-#submit-input {
-    width: 100%;
-    height: 40px;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom:10px;
-}
+    #submit-input {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom:10px;
+    }
 
-button {
-    color: #ffffff;
-    width: 100%;
-    height: 40px;
-    background-color: black;
-    text-align: center;
-    vertical-align: center;
-    display: table-cell;
-    line-height: 40px;
-    font-size: 16px;
-    border: 0;
-    padding: 0;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
+    button {
+        color: #ffffff;
+        width: 100%;
+        height: 40px;
+        background-color: black;
+        border-radius: 5px;
+    }
+</style>
 
 <body>
     <img is="native-image" width="256" height="256" id="icon" src="img/lenna.png"></img>
