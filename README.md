@@ -13,11 +13,6 @@ Code example
 
 ```html
 
-html {
-    font-family: 'Helvetica';
-    text-align: center;
-}
-
 body {
     margin: 20px;
 }
