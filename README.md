@@ -7,7 +7,7 @@ No new conceptions. Use HTML/CSS which you know so good to develop completely na
 
 Motivation
 ----------
-Currently mobile devices are powerful enough to run mobile web applications at 60 FPS however controls behaviour (buttons, sliders, form elements) is different between web and native platforms. Experienced user notice this difference immideately which results in lower user satisfaction for web based apps because they got used to consistant UI behaviour on mobile platform of their choice. This can be solved by creating native facade for natvie components.
+Currently mobile devices are powerful enough to run mobile web applications at 60 FPS however controls behaviour (buttons, sliders, form elements) is different between web and native platforms. Experienced user notice this difference immideately which results in lower user satisfaction for web based apps because they got used to consistant UI behaviour on mobile platform of their choice. Creating native facades for web components results in better user experience without additional effort or knowledge needed.
 
 Example app index.html
 ----------------------
