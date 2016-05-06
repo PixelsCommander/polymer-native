@@ -56,14 +56,30 @@ Result Chrome
 -------------
 ![Polymer Native app sample](https://github.com/PixelsCommander/polymer-native/blob/master/figures/app-screen-browser.png?raw=true)
 
+
+How to
+------
+
+Installing via NPM
+
+```bash
+    npm install polymer-native -g
+```
+
 Initializing new project
---------------------
+
 ```bash
     polymer-native init MyTestProject
 ```
 
 Running project on iOS
-----------------------
+
 ```bash
     polymer-native run
 ```
+
+License
+-------
+MIT: http://mit-license.org/
+
+Copyright 2016 Denis Radin aka [PixelsCommander](http://pixelscommander.com)
