@@ -1,7 +1,7 @@
 ![Polymer Native](https://github.com/PixelsCommander/polymer-native/blob/master/figures/logo.png?raw=true)
 
-Web Components based native UI framework
-========================================
+Native UI framework based on Web Components
+===========================================
 
 No new conceptions. Use HTML/CSS which you know so good to develop completely native applications.
 
