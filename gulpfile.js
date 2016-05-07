@@ -122,9 +122,8 @@ gulp.task('npm', function (done) {
     return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', done);
 });
 
-gulp.task('newrelease', function () {
+gulp.task('release', function () {
     return sequence('bump', 'npm', function (cb) {
-
     });
 });
 
