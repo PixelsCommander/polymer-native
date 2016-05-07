@@ -16,10 +16,10 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/webcomponents.js/webcomponents-lite.min.js',
-      './libraries/js/src/pn-utils.js',
-      './libraries/js/src/pn-base-element.js',
-      './libraries/js/src/elements/*.js',
-      './libraries/js/spec/*.js'
+      './partials/js-library/src/pn-utils.js',
+      './partials/js-library/src/pn-base-element.js',
+      './partials/js-library/src/elements/*.js',
+      './partials/js-library/spec/*.js'
     ],
 
 

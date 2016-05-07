@@ -1,0 +1,11 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/polymer-native/build/build.sh"
+  },
+  "dependencies": {
+    "polymer-native": "*"
+  }
+}

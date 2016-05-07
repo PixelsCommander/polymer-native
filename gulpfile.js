@@ -11,78 +11,121 @@ var BUNDLE_NAME = 'polymer-native',
     karma = require('karma'),
     sequence = require('gulp-sequence'),
     karmaParseConfig = require('karma/lib/config').parseConfig,
-    bump = require('gulp-bump');
-
-gulp.task('build', function () {
-    gulp.src(['node_modules/webcomponents.js/webcomponents-lite.min.js', './libraries/js/src/pn-utils.js', './libraries/js/src/pn-base-element.js', './libraries/js/src/elements/*.js'])
-        .pipe(concat(BUNDLE_NAME + '.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(uglify(BUNDLE_NAME + '.min.js'))
-        .pipe(gulp.dest('dist'));
-});
+    bump = require('gulp-bump'),
+    spawn = require('child_process').spawn;
 
 function runKarma(configFilePath, options, cb) {
 
     configFilePath = path.resolve(configFilePath);
 
     var server = karma.server;
-    var log=gutil.log, colors=gutil.colors;
+    var log = gutil.log, colors = gutil.colors;
     var config = karmaParseConfig(configFilePath, {});
 
-    Object.keys(options).forEach(function(key) {
+    Object.keys(options).forEach(function (key) {
         config[key] = options[key];
     });
 
-    server.start(config, function(exitCode) {
+    server.start(config, function (exitCode) {
         log('Karma has exited with ' + colors.red(exitCode));
         cb();
         process.exit(exitCode);
     });
 }
 
-/** actual tasks */
+/** TESTING */
 
-/** single run */
-gulp.task('test', function(cb) {
+gulp.task('test', function (cb) {
     runKarma('karma.conf.js', {
         autoWatch: false,
         singleRun: true
     }, cb);
 });
 
-/** continuous ... using karma to watch (feel free to circumvent that;) */
-gulp.task('test-dev', function(cb) {
+gulp.task('test-dev', function (cb) {
     runKarma('karma.conf.js', {
         autoWatch: true,
         singleRun: false
     }, cb);
 });
 
-gulp.task('develop', function() {
-    watch('./libraries/js/src/*.js', function(){
-        gulp.run(['build'/*, 'test'*/])
-    });
+/** BUILD JS */
+
+gulp.task('buildjs', function () {
+    gulp.src(['node_modules/webcomponents.js/webcomponents-lite.min.js', './partials/js-library/src/pn-utils.js', './partials/js-library/src/pn-base-element.js', './partials/js-library/src/elements/*.js'])
+        .pipe(concat(BUNDLE_NAME + '.js'))
+        .pipe(gulp.dest('./partials/js-library/dist/'))
+        .pipe(uglify(BUNDLE_NAME + '.min.js'))
+        .pipe(gulp.dest('./partials/js-library/dist/'));
 });
 
-gulp.task('cleantemplate', function() {
+/** BUILD IOS GENERATOR */
+
+gulp.task('copyjstoweb', function () {
+    return gulp.src('./partials/js-library/dist/*.*')
+        .pipe(copy('./partials/web-template/js/', {
+            prefix: 3
+        }));
+});
+
+gulp.task('cleaniosgen', function () {
     return gulp.src('./ios-generator/app/templates/project', {read: false})
         .pipe(clean());
 });
 
-gulp.task('insertvarsintemplate', function() {
-    return gulp.src(path.join('./libraries/ios/polymer-native-template/','**/*'))
+gulp.task('cleanwebgen', function () {
+    return gulp.src('./ios-generator/app/templates/web', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('copyiostoiosgen', function () {
+    return gulp.src(path.join('./partials/ios-template/', '**/*'))
         .pipe(replace('polymer-native-template', '<%= name %>'))
         .pipe(gulp.dest('./ios-generator/app/templates/project'));
 });
 
-gulp.task('updatetemplate', function(){
-    return sequence('cleantemplate', 'insertvarsintemplate');
+gulp.task('copywebtoiosgen', function () {
+    return gulp.src('./partials/web-template/**/*')
+        .pipe(copy('./ios-generator/app/templates/web', {
+            prefix: 2
+        }));
 });
 
-gulp.task('bump', function(){
-    gulp.src('./package.json')
-        .pipe(bump({type:'minor'}))
+gulp.task('updateiosgenerator', function () {
+    return sequence(
+        'cleaniosgen',
+        'cleanwebgen',
+        'buildjs',
+        'copyjstoweb',
+        'copywebtoiosgen',
+        'copyiostoiosgen',
+        function (cb) {
+        }
+    );
+});
+
+/** DEV */
+
+gulp.task('develop', function () {
+    watch('./partials/js-library/src/*.js', function () {
+        return gulp.run('buildjs');
+    });
+});
+
+gulp.task('bump', function () {
+    return gulp.src('./package.json')
+        .pipe(bump({type: 'patch'}))
         .pipe(gulp.dest('./'));
+});
+
+gulp.task('npm', function (done) {
+    return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', done);
+});
+
+gulp.task('newrelease', function () {
+    return sequence('bump', 'npm', function (cb) {
+
+    });
 });
 
 gulp.task('default', ['test-dev', 'develop']);

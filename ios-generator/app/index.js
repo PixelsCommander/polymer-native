@@ -30,7 +30,7 @@ module.exports = yeoman.Base.extend({
         );
 
         this.fs.copyTpl(
-            [this.templatePath(path.join('npm/', '*'))],
+            [this.templatePath(path.join('web/', '**', '*'))],
             this.destinationPath(),
             this
         );
