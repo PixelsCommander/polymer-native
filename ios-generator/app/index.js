@@ -4,6 +4,8 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
 
+var TEMPLATING_PREFIX = 'polymer-native-template';
+
 module.exports = yeoman.Base.extend({
 
     constructor: function () {
@@ -14,22 +16,49 @@ module.exports = yeoman.Base.extend({
     writing: function () {
         var templateVars = {name: this.name};
 
+        this.fs.copy(
+            [this.templatePath(path.join('./ios/Pods', '**', '*'))],
+            this.destinationPath(path.join('ios/Pods'))
+        );
+
         this.fs.copyTpl(
-            [
-                this.templatePath(path.join('./ios/', '**', '*')),
-                this.templatePath(path.join('./www/', '**', '*')),
-                '!**/*.png'
-            ],
-            this.destinationPath(),
+            [this.templatePath(path.join('./ios/', '*'))],
+            this.destinationPath(path.join('ios/')),
+            this
+        );
+
+        this.fs.copyTpl(
+            [this.templatePath(path.join('./www/', '**', '*')), '!**/*.png'],
+            this.destinationPath('www/'),
             this
         );
 
         this.fs.copy(
-            [
-                this.templatePath(path.join('./ios/', '**', '*.png')),
-                this.templatePath(path.join('./www/', '**', '*.png'))
-            ],
-            this.destinationPath()
+            this.templatePath(path.join('./www/', '**', '*.png')),
+            this.destinationPath('www/')
+        );
+
+        this.fs.copy(
+            this.templatePath(path.join('./ios/', TEMPLATING_PREFIX, '**', '*.png')),
+            this.destinationPath(path.join('ios/', this.name))
+        );
+
+        this.fs.copyTpl(
+            [this.templatePath(path.join('./ios/', TEMPLATING_PREFIX, '**', '*')), '!**/*.png'],
+            this.destinationPath(path.join('ios/', this.name)),
+            this
+        );
+
+        this.fs.copyTpl(
+            this.templatePath(path.join('./ios/', TEMPLATING_PREFIX + '.xcodeproj', '**', '*')),
+            this.destinationPath(path.join('ios/', this.name + '.xcodeproj')),
+            this
+        );
+
+        this.fs.copyTpl(
+            this.templatePath(path.join('./ios/', TEMPLATING_PREFIX + '.xcworkspace', '**', '*')),
+            this.destinationPath(path.join('ios/', this.name + '.xcworkspace')),
+            this
         );
     },
 
