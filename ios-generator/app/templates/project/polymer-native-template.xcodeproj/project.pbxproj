@@ -12,7 +12,7 @@
 		0113144C1C9E009B00443CE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0113144A1C9E009B00443CE9 /* Main.storyboard */; };
 		0113144E1C9E009B00443CE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0113144D1C9E009B00443CE9 /* Assets.xcassets */; };
 		011314511C9E009B00443CE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0113144F1C9E009B00443CE9 /* LaunchScreen.storyboard */; };
-		013F42131CDF76FB0026E741 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 013F42121CDF76FB0026E741 /* www */; };
+		0121A27F1CDF831E00B29754 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 0121A27E1CDF831E00B29754 /* www */; };
 		0178276A1CAC1D5E00F35FD0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 017827691CAC1D5E00F35FD0 /* WebKit.framework */; };
 		0178276E1CAC68EB00F35FD0 /* XWebView in Frameworks */ = {isa = PBXBuildFile; fileRef = 0178276D1CAC68EB00F35FD0 /* XWebView */; };
 		018FC1B31CBC299E000B3D58 /* PNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FC1B21CBC299E000B3D58 /* PNView.swift */; };
@@ -34,7 +34,7 @@
 		011314501C9E009B00443CE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		011314521C9E009B00443CE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011314581C9E00AA00443CE9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		013F42121CDF76FB0026E741 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../www; sourceTree = "<group>"; };
+		0121A27E1CDF831E00B29754 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		017827691CAC1D5E00F35FD0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0178276D1CAC68EB00F35FD0 /* XWebView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = XWebView; sourceTree = "<group>"; };
 		018FC1B21CBC299E000B3D58 /* PNView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNView.swift; sourceTree = "<group>"; };
@@ -85,12 +85,12 @@
 		011314451C9E009B00443CE9 /* <%= name %> */ = {
 			isa = PBXGroup;
 			children = (
+				0121A27E1CDF831E00B29754 /* www */,
 				01E483231CA31AB300C4C9B7 /* TagsStrategies */,
 				011314461C9E009B00443CE9 /* AppDelegate.swift */,
 				011314481C9E009B00443CE9 /* ViewController.swift */,
 				0113144A1C9E009B00443CE9 /* Main.storyboard */,
 				0113144D1C9E009B00443CE9 /* Assets.xcassets */,
-				013F42121CDF76FB0026E741 /* www */,
 				0113144F1C9E009B00443CE9 /* LaunchScreen.storyboard */,
 				011314521C9E009B00443CE9 /* Info.plist */,
 				01E4831F1C9EEB3700C4C9B7 /* PolymerNative.swift */,
@@ -191,9 +191,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0121A27F1CDF831E00B29754 /* www in Resources */,
 				011314511C9E009B00443CE9 /* LaunchScreen.storyboard in Resources */,
 				0113144E1C9E009B00443CE9 /* Assets.xcassets in Resources */,
-				013F42131CDF76FB0026E741 /* www in Resources */,
 				0113144C1C9E009B00443CE9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

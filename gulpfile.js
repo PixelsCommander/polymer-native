@@ -118,14 +118,16 @@ gulp.task('bump', function () {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('npm', function (done) {
-    return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', function(){
-        spawn('npm', ['install', 'polymer-native', '-g'], {stdio: 'inherit'}).on('close', done)
-    });
+gulp.task('npm-publish', function (done) {
+    return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', done);
+});
+
+gulp.task('npm-install', function (done) {
+    return spawn('npm', ['install', 'polymer-native', '-g'], {stdio: 'inherit'}).on('close', done);
 });
 
 gulp.task('release', function () {
-    return sequence('updateiosgenerator' ,'bump', 'npm', function (cb) {
+    return sequence('updateiosgenerator' ,'bump', 'npm-publish', 'npm-install', function (cb) {
     });
 });
 
