@@ -69,12 +69,7 @@ gulp.task('copyjstoweb', function () {
 });
 
 gulp.task('cleaniosgen', function () {
-    return gulp.src('./ios-generator/app/templates/ios', {read: false})
-        .pipe(clean());
-});
-
-gulp.task('cleanwebgen', function () {
-    return gulp.src('./ios-generator/app/templates/www', {read: false})
+    return gulp.src(['./ios-generator/app/templates/ios', './ios-generator/app/templates/www'], {read: false})
         .pipe(clean());
 });
 
@@ -93,7 +88,6 @@ gulp.task('copywebtoiosgen', function () {
 gulp.task('updateiosgenerator', function () {
     return sequence(
         'cleaniosgen',
-        'cleanwebgen',
         'buildjs',
         'copyjstoweb',
         'copywebtoiosgen',
@@ -119,7 +113,9 @@ gulp.task('bump', function () {
 
 gulp.task('npm-publish', function (done) {
     return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', function(){
-        spawn('npm', ['install', 'polymer-native', '-g'], {stdio: 'inherit'}).on('close', done);
+        setTimeout(function(){
+            spawn('npm', ['install', 'polymer-native', '-g'], {stdio: 'inherit'}).on('close', done);
+        }, 1000);
     });
 });
 
