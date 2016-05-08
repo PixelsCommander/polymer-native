@@ -69,25 +69,25 @@ gulp.task('copyjstoweb', function () {
 });
 
 gulp.task('cleaniosgen', function () {
-    return gulp.src('./ios-generator/app/templates/project', {read: false})
+    return gulp.src('./ios-generator/app/templates/ios', {read: false})
         .pipe(clean());
 });
 
 gulp.task('cleanwebgen', function () {
-    return gulp.src('./ios-generator/app/templates/web', {read: false})
+    return gulp.src('./ios-generator/app/templates/www', {read: false})
         .pipe(clean());
 });
 
 gulp.task('copyiostoiosgen', function () {
     return gulp.src(path.join('./partials/ios-template/', '**/*'))
         .pipe(replace('polymer-native-template', '<%= name %>'))
-        .pipe(gulp.dest('./ios-generator/app/templates/project'));
+        .pipe(gulp.dest('./ios-generator/app/templates/ios'));
 });
 
 gulp.task('copywebtoiosgen', function () {
     return gulp.src(path.join('./partials/www/', '**/*'))
         .pipe(replace('polymer-native-template', '<%= name %>'))
-        .pipe(gulp.dest('./ios-generator/app/templates/web'));
+        .pipe(gulp.dest('./ios-generator/app/templates/www'));
 });
 
 gulp.task('updateiosgenerator', function () {
@@ -118,15 +118,13 @@ gulp.task('bump', function () {
 });
 
 gulp.task('npm-publish', function (done) {
-    return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', done);
-});
-
-gulp.task('npm-install', function (done) {
-    return spawn('npm', ['install', 'polymer-native', '-g'], {stdio: 'inherit'}).on('close', done);
+    return spawn('npm', ['publish'], {stdio: 'inherit'}).on('close', function(){
+        spawn('npm', ['install', 'polymer-native', '-g'], {stdio: 'inherit'}).on('close', done);
+    });
 });
 
 gulp.task('release', function () {
-    return sequence('updateiosgenerator' ,'bump', 'npm-publish', 'npm-install', function (cb) {
+    return sequence('updateiosgenerator' ,'bump', 'npm-publish', function (cb) {
     });
 });
 
