@@ -1,6 +1,6 @@
 {
   "name": "polymer-native",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "Native bindings for web components and Polymer framework",
   "main": "index.js",
   "scripts": {
