@@ -20,7 +20,7 @@ function init(argsOrName) {
     var env = yeoman.createEnv(
         undefined,
         undefined,
-        new CreateSuppressingTerminalAdapter()
+        new TerminalAdapter()
     );
 
     env.register(

@@ -16,11 +16,9 @@ module.exports = yeoman.Base.extend({
     writing: function () {
         var templateVars = {name: this.name};
 
-        console.log('Application name', this.name);
-
         this.fs.copy(
-            [this.templatePath(path.join('./project/', 'Pods', '**', '*'))],
-            this.destinationPath(path.join('ios', 'Pods'))
+            [this.templatePath(path.join('./project/Pods', '**', '*'))],
+            this.destinationPath(path.join('ios/Pods'))
         );
 
         this.fs.copyTpl(
@@ -70,10 +68,7 @@ module.exports = yeoman.Base.extend({
 
     end: function () {
         var projectPath = path.resolve(this.destinationRoot(), 'ios', this.name);
-        this.log(chalk.white.bold('Now you may run your app by:'));
-        this.log(chalk.white('   cd ' + this.destinationRoot()));
-        this.log(chalk.white('   polymer-native run'));
-        this.log(chalk.white('   or'));
-        this.log(chalk.white('   Open ' + projectPath + '.xcworkspace in Xcode and run it then'));
+        this.log(chalk.white.bold('Now you may run your app by'));
+        this.log(chalk.white.bold('opening ' + projectPath + '.xcworkspace in Xcode and runing it then'));
     }
 });

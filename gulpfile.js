@@ -85,10 +85,9 @@ gulp.task('copyiostoiosgen', function () {
 });
 
 gulp.task('copywebtoiosgen', function () {
-    return gulp.src('./partials/www/**/*')
-        .pipe(copy('./ios-generator/app/templates/web', {
-            prefix: 2
-        }));
+    return gulp.src(path.join('./partials/www/', '**/*'))
+        .pipe(replace('polymer-native-template', '<%= name %>'))
+        .pipe(gulp.dest('./ios-generator/app/templates/web'));
 });
 
 gulp.task('updateiosgenerator', function () {
