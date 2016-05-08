@@ -41,7 +41,7 @@ class PolymerNative : NSObject {
         self.webview = WKWebView(frame: self.deployView.frame, configuration: WKWebViewConfiguration())
         self.webview.loadPlugin(PolymerNative.instance!, namespace: "polymerNativeHost")
         let root = NSBundle.mainBundle().resourceURL!
-        let url = root.URLByAppendingPathComponent("index.html")
+        let url = root.URLByAppendingPathComponent("./www/index.html")
         self.webview.loadFileURL(url, allowingReadAccessToURL: root)
         self.webview.hidden = true
         self.webview.userInteractionEnabled = false

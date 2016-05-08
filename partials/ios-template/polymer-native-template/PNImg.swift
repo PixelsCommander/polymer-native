@@ -19,7 +19,7 @@ class PNImg : PNBaseElement {
         super.update()
         
         //Title text
-        let src = self.properties["src"] as! String
+        let src = PNUtils.webPathToAppPath(self.properties["src"] as! String)
         let image = UIImage(named:src)
         (self.renderedComponent as! UIImageView).image = image
     }

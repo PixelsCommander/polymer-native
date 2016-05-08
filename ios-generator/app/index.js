@@ -19,41 +19,46 @@ module.exports = yeoman.Base.extend({
         console.log('Application name', this.name);
 
         this.fs.copy(
-            [this.templatePath(path.join('./project/Pods', '**', '*'))],
-            this.destinationPath(path.join('ios/Pods'))
+            [this.templatePath(path.join('project', 'Pods', '**', '*'))],
+            this.destinationPath(path.join('ios', 'Pods'))
         );
 
         this.fs.copyTpl(
-            [this.templatePath(path.join('./project/', '*'))],
+            [this.templatePath(path.join('project/', '*'))],
             this.destinationPath(path.join('ios/')),
             this
         );
 
         this.fs.copyTpl(
-            [this.templatePath(path.join('web/', '**', '*'))],
+            [this.templatePath(path.join('web/', '**', '*')), '!**/*.png'],
             this.destinationPath(),
             this
         );
 
         this.fs.copy(
-            this.templatePath(path.join('./project', TEMPLATING_PREFIX, '**', '*.png')),
+            this.templatePath(path.join('web/', '**', '*.png')),
+            this.destinationPath()
+        );
+
+        this.fs.copy(
+            this.templatePath(path.join('project/', TEMPLATING_PREFIX, '**', '*.png')),
             this.destinationPath(path.join('ios/', this.name))
         );
 
         this.fs.copyTpl(
-            [this.templatePath(path.join('./project/', TEMPLATING_PREFIX, '**', '*')), '!**/*.png'],
+            [this.templatePath(path.join('project/', TEMPLATING_PREFIX, '**', '*')), '!**/*.png'],
             this.destinationPath(path.join('ios/', this.name)),
             this
         );
 
         this.fs.copyTpl(
-            this.templatePath(path.join('./project/', TEMPLATING_PREFIX + '.xcodeproj', '**', '*')),
+            this.templatePath(path.join('project/', TEMPLATING_PREFIX + '.xcodeproj', '**', '*')),
             this.destinationPath(path.join('ios/', this.name + '.xcodeproj')),
             this
         );
 
         this.fs.copyTpl(
-            this.templatePath(path.join('./project/', TEMPLATING_PREFIX + '.xcworkspace', '**', '*')),
+            this.templatePath(path.join('project/', TEMPLATING_PREFIX + '.xcworkspace', '**', '*')),
             this.destinationPath(path.join('ios/', this.name + '.xcworkspace')),
             this
         );

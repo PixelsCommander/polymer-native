@@ -10,12 +10,17 @@ import Foundation
 import UIKit
 
 class PNUtils: NSObject {
+    
+    static var APP_FILES_PATH = "./www/";
+    
     static func dispatchEventOnDOM(elementId: String, eventName: String, data: NSDictionary = NSDictionary()) {
+        
         let jsCommand = "window.polymerNativeClient.dispatchEvent('" + elementId + "', '" + eventName + "')"
         PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
     }
     
     static func callMethodOnDOM(elementId: String, methodName: String, argument: String) {
+        
         let jsCommand = "window.polymerNativeClient.callMethod('" + elementId + "', '" + methodName + "', '" + argument + "')"
         PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
     }
@@ -49,11 +54,13 @@ class PNUtils: NSObject {
         return color
     }
     
-    private static func tagNameToClassName(tagName: NSString) -> NSString {
+    private static func tagNameToClassName(tagName: NSString) -> String {
+        
         return tagName.lowercaseString.camelCasedString
     }
     
     static func tagNameToClass(tagName: NSString) -> NSObject.Type {
+        
         var bundleName: String = NSBundle.mainBundle().infoDictionary!["CFBundleName"] as! String
         bundleName = bundleName.stringByReplacingOccurrencesOfString("-", withString: "_", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
@@ -62,6 +69,10 @@ class PNUtils: NSObject {
         let nsobjectype : NSObject.Type = anyobjectype as! NSObject.Type
         
         return nsobjectype
+    }
+    
+    static func webPathToAppPath(filePath: String) -> String {
+        return APP_FILES_PATH + filePath;
     }
 }
 
@@ -144,6 +155,7 @@ extension UIColor {
 
 extension String {
     var camelCasedString: String {
+        
         let source = self
         if source.characters.contains("-") {
             let firstAndSecond = (source as NSString).uppercaseString.substringToIndex(source.startIndex.advancedBy(2))
