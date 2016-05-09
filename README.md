@@ -3,6 +3,8 @@
 Native UI framework based on Web Components
 ===========================================
 
+[![Join the chat at https://gitter.im/PixelsCommander/polymer-native](https://badges.gitter.im/PixelsCommander/polymer-native.svg)](https://gitter.im/PixelsCommander/polymer-native?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 No new conceptions. Feel free to use HTML/CSS which you know so good to develop completely native applications for mobile platforms.
 
 Motivation
