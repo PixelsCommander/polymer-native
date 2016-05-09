@@ -9,7 +9,7 @@ Want to have a power of React Native being framework - agnostic? Here you go. Fe
 
 Motivation
 ----------
-Currently mobile devices are powerful enough to run mobile web applications at 60 FPS however controls behaviour (buttons, sliders, form elements) is different between web and native platforms. Experienced user notice this difference immideately which results in lower user satisfaction for web based apps because they got used to consistant UI behaviour on mobile platform of their choice. Creating native facades for web components results in better user experience without additional effort or knowledge needed.
+Currently mobile devices are powerful enough to run mobile web applications at 60 FPS however controls behavior (buttons, sliders, form elements) is different between web and native platforms. Experienced user notice this difference immediately which results in lower user satisfaction for web based apps because they got used to consistent UI behavior on mobile platform of their choice. Creating native facades for web components results in better user experience without additional effort or knowledge needed.
 
 Example app index.html
 ----------------------
