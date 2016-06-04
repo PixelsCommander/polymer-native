@@ -52,11 +52,11 @@ Example app index.html
 
 Will result in app looking in the same way in browser and on mobile device or emulator but the difference is that in browser all controls are web and on mobile UI is native which leads to higher user satisfaction without additional job done.
 
-Result iOS
+Result iOS (native app)
 -------------
 ![Polymer Native app sample](https://github.com/PixelsCommander/polymer-native/blob/master/figures/app-screen.png?raw=true)
 
-Result Chrome
+Result Chrome (web app)
 -------------
 ![Polymer Native app sample](https://github.com/PixelsCommander/polymer-native/blob/master/figures/app-screen-browser.png?raw=true)
 
