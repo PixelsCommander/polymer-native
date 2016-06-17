@@ -84,9 +84,7 @@ Initializing new project
 
 Running project on iOS
 
-```bash
-    polymer-native run
-```
+Open project in x-code and run it with cmd+r
 
 License
 -------
