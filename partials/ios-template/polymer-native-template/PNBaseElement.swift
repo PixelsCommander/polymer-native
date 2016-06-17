@@ -1,5 +1,5 @@
 //
-//  PNElement.swift
+//  PNBaseElement.swift
 //  polymer-native-template
 //
 //  Created by Denis Radin on 20/03/16.
@@ -13,6 +13,7 @@ class PNBaseElement : NSObject {
     
     var id: String = ""
     var properties: NSDictionary = NSDictionary()
+    var style: NSDictionary = NSDictionary()
     var parentId: Int8 = 0
     var parentView : UIView!
     var parentPNView : PNBaseElement!
@@ -33,13 +34,13 @@ class PNBaseElement : NSObject {
         
     }
     
-    func initializeListeners() {
-        
-    }
-    
     func updateProperties(properties: NSDictionary) {
         if (properties.count > 0) {
             self.properties = properties
+            
+            if (self.properties["style"] != nil) {
+                self.style = self.properties["style"] as! NSDictionary
+            }
         }
     }
     
@@ -50,7 +51,23 @@ class PNBaseElement : NSObject {
             
             //Background color
             self.renderedComponent.backgroundColor = PNUtils.backgroundColorFromProperties(self.properties)
+            
+            //Display
+            //self.renderedComponent.hidden = !PNUtils.visibilityFromProperties(self.properties)
+            
+            //Border
+            self.renderedComponent.layer.borderWidth = CGFloat(PNUtils.sizeFromCSSProperty(self.style["borderWidth"] as! String))
+            self.renderedComponent.layer.borderColor = PNUtils.colorFromCSSProperty(self.style["borderColor"] as! String).CGColor
+            self.renderedComponent.layer.cornerRadius = CGFloat(PNUtils.sizeFromCSSProperty(self.style["borderRadius"] as! String))
         }
+        
+        if (self.parentPNView != nil) {
+            (self.parentPNView as! PNView).resize()
+        }
+    }
+    
+    func initializeListeners() {
+        
     }
     
     func mount() {

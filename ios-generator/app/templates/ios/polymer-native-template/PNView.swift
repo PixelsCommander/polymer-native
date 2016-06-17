@@ -1,5 +1,5 @@
 //
-//  PNElement.swift
+//  PNView.swift
 //  <%= name %>
 //
 //  Created by Denis Radin on 20/03/16.
@@ -8,22 +8,12 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class PNView : PNBaseElement {
-    
+
     override func create() {
-        self.create(nil)
-    }
-    
-    //Need to have create with UIView argument here since root node is going to be created on UIView, not on PNView
-    func create(parentView: UIView?=nil) {
         self.renderedComponent = UIScrollView()
-        
-        if (parentView != nil) {
-            self.parentView = parentView
-            self.renderedComponent.frame = parentView!.bounds
-            (self.renderedComponent as! UIScrollView).contentSize = parentView!.bounds.size
-        }
     }
     
     func resize() {
@@ -34,7 +24,15 @@ class PNView : PNBaseElement {
             }
         }
         
-        (self.renderedComponent as! UIScrollView).contentSize.height = totalHeight
+        totalHeight = 2000;
+        
+        if (self.renderedComponent is UIScrollView) {
+                (self.renderedComponent as! UIScrollView).contentSize.height = totalHeight
+        }
+        
+        if (self.renderedComponent is UIView) {
+            self.renderedComponent.frame.size.height = totalHeight
+        }
     }
     
     func mountChild(element: PNBaseElement) {
@@ -43,7 +41,6 @@ class PNView : PNBaseElement {
         element.create()
         element.update()
         element.mount()
-        self.resize()
     }
     
     func unmountChild(element: PNBaseElement) {

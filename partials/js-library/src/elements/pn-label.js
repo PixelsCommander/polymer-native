@@ -4,6 +4,6 @@ var PnUtils = require('../pn-utils.js');
 var proto = Object.create(HTMLDivElement.prototype);
 proto = Object.assign(proto, PnBaseElement);
 
-PnUtils.register('view', {
+PnUtils.register('label', {
     prototype: proto
 });

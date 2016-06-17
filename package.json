@@ -22,6 +22,8 @@
   "license": "ISC",
   "dependencies": {
     "minimist": "^1.2.0",
+    "page": "^1.7.1",
+    "path-to-regexp": "^1.5.0",
     "promise": "^7.1.1",
     "webcomponents.js": "^0.7.21",
     "yeoman-environment": "^1.6.1",
@@ -29,7 +31,9 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
+    "browserify": "^13.0.1",
     "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
     "gulp-bump": "^2.1.0",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
@@ -38,14 +42,17 @@
     "gulp-sequence": "^0.4.5",
     "gulp-uglifyjs": "^0.6.2",
     "gulp-watch": "^4.3.5",
+    "history": "^2.1.2",
     "install": "^0.6.1",
     "jasmine-core": "^2.4.1",
     "jasmine-object-containing": "0.0.2",
     "karma": "^0.13.22",
+    "karma-browserify": "^5.0.5",
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
     "npm": "^3.8.6",
     "phantomjs": "^2.1.7",
-    "phantomjs-prebuilt": "^2.1.7"
+    "phantomjs-prebuilt": "^2.1.7",
+    "watchify": "^3.7.0"
   }
 }

@@ -1,0 +1,52 @@
+html {
+    font-family: 'Helvetica';
+    text-align: center;
+}
+
+button {
+    color: #ffffff;
+    height: 40px;
+    background-color: black;
+    text-align: center;
+    vertical-align: center;
+    display: table-cell;
+    line-height: 40px;
+    font-size: 16px;
+    border: 0;
+    padding: 0;
+    border-radius: 5px;
+}
+
+input {
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 5px;
+}
+
+native-view {
+    display: block;
+}
+
+native-router {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+native-route {
+    display: block;
+    visibility: hidden;
+    position:absolute;
+    left:0;
+    top:0;
+    width: 100%;
+}
+
+native-label {
+    display: block;
+}

@@ -4,21 +4,28 @@
 module.exports = function(config) {
   config.set({
 
+    browserify: {
+      debug: true,
+      transform: [ 'brfs' ]
+    },
+
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
-    plugins : ['karma-jasmine', 'karma-phantomjs-launcher'],
+    frameworks: [ 'jasmine'],
+    plugins : ['browserify', 'karma-jasmine', 'karma-phantomjs-launcher'],
+
+    preprocessors: {
+      './partials/js-library/src/polymer-native.js': [ 'browserify' ],
+      './partials/js-library/spec/*.js': [ 'browserify' ]
+    },
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/webcomponents.js/webcomponents-lite.min.js',
-      './partials/js-library/src/pn-utils.js',
-      './partials/js-library/src/pn-base-element.js',
-      './partials/js-library/src/elements/*.js',
+      './partials/js-library/src/polymer-native.js',
       './partials/js-library/spec/*.js'
     ],
 

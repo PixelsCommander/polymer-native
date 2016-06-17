@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0102F7231CFB6C54002DA358 /* PNLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0102F7221CFB6C54002DA358 /* PNLabel.swift */; };
 		011314471C9E009B00443CE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011314461C9E009B00443CE9 /* AppDelegate.swift */; };
 		011314491C9E009B00443CE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011314481C9E009B00443CE9 /* ViewController.swift */; };
 		0113144C1C9E009B00443CE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0113144A1C9E009B00443CE9 /* Main.storyboard */; };
 		0113144E1C9E009B00443CE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0113144D1C9E009B00443CE9 /* Assets.xcassets */; };
 		011314511C9E009B00443CE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0113144F1C9E009B00443CE9 /* LaunchScreen.storyboard */; };
 		0121A27F1CDF831E00B29754 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 0121A27E1CDF831E00B29754 /* www */; };
+		01370C111CFB249A003B0085 /* PNRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01370C101CFB249A003B0085 /* PNRouter.swift */; };
+		01370C131CFB2661003B0085 /* PNRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01370C121CFB2661003B0085 /* PNRoute.swift */; };
+		013A92131D06090B008F0F75 /* PNRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A92121D06090B008F0F75 /* PNRoot.swift */; };
 		0178276A1CAC1D5E00F35FD0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 017827691CAC1D5E00F35FD0 /* WebKit.framework */; };
 		0178276E1CAC68EB00F35FD0 /* XWebView in Frameworks */ = {isa = PBXBuildFile; fileRef = 0178276D1CAC68EB00F35FD0 /* XWebView */; };
 		018FC1B31CBC299E000B3D58 /* PNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018FC1B21CBC299E000B3D58 /* PNView.swift */; };
@@ -26,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0102F7221CFB6C54002DA358 /* PNLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNLabel.swift; sourceTree = "<group>"; };
 		011314431C9E009B00443CE9 /* polymer-native-template.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "polymer-native-template.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		011314461C9E009B00443CE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		011314481C9E009B00443CE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +40,9 @@
 		011314521C9E009B00443CE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011314581C9E00AA00443CE9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0121A27E1CDF831E00B29754 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
+		01370C101CFB249A003B0085 /* PNRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRouter.swift; sourceTree = "<group>"; };
+		01370C121CFB2661003B0085 /* PNRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRoute.swift; sourceTree = "<group>"; };
+		013A92121D06090B008F0F75 /* PNRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRoot.swift; sourceTree = "<group>"; };
 		017827691CAC1D5E00F35FD0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0178276D1CAC68EB00F35FD0 /* XWebView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = XWebView; sourceTree = "<group>"; };
 		018FC1B21CBC299E000B3D58 /* PNView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNView.swift; sourceTree = "<group>"; };
@@ -99,14 +107,26 @@
 			path = "polymer-native-template";
 			sourceTree = "<group>";
 		};
+		01370C0F1CFB2478003B0085 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				01370C101CFB249A003B0085 /* PNRouter.swift */,
+				01370C121CFB2661003B0085 /* PNRoute.swift */,
+			);
+			name = Router;
+			sourceTree = "<group>";
+		};
 		01E483231CA31AB300C4C9B7 /* TagsStrategies */ = {
 			isa = PBXGroup;
 			children = (
+				01370C0F1CFB2478003B0085 /* Router */,
 				01E483241CA32FE700C4C9B7 /* PNButton.swift */,
 				01FE6B7F1CA49620000C1542 /* PNImg.swift */,
 				018FC1B21CBC299E000B3D58 /* PNView.swift */,
+				013A92121D06090B008F0F75 /* PNRoot.swift */,
 				01E4832C1CA4830000C4C9B7 /* PNInput.swift */,
 				01E483281CA33A2300C4C9B7 /* PNBaseElement.swift */,
+				0102F7221CFB6C54002DA358 /* PNLabel.swift */,
 			);
 			name = TagsStrategies;
 			sourceTree = "<group>";
@@ -254,7 +274,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				01E4832D1CA4830000C4C9B7 /* PNInput.swift in Sources */,
+				01370C131CFB2661003B0085 /* PNRoute.swift in Sources */,
+				0102F7231CFB6C54002DA358 /* PNLabel.swift in Sources */,
 				01FE6B801CA49620000C1542 /* PNImg.swift in Sources */,
+				01370C111CFB249A003B0085 /* PNRouter.swift in Sources */,
 				01E483201C9EEB3700C4C9B7 /* PolymerNative.swift in Sources */,
 				011314491C9E009B00443CE9 /* ViewController.swift in Sources */,
 				01E483251CA32FE700C4C9B7 /* PNButton.swift in Sources */,
@@ -262,6 +285,7 @@
 				018FC1B31CBC299E000B3D58 /* PNView.swift in Sources */,
 				011314471C9E009B00443CE9 /* AppDelegate.swift in Sources */,
 				01E483291CA33A2300C4C9B7 /* PNBaseElement.swift in Sources */,
+				013A92131D06090B008F0F75 /* PNRoot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

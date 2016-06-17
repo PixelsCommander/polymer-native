@@ -13,6 +13,12 @@ class PNUtils: NSObject {
     
     static var APP_FILES_PATH = "./www/";
     
+    static func backHistory() {
+        
+        let jsCommand = "window.polymerNativeClient.back()"
+        PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
+    }
+    
     static func dispatchEventOnDOM(elementId: String, eventName: String, data: NSDictionary = NSDictionary()) {
         
         let jsCommand = "window.polymerNativeClient.dispatchEvent('" + elementId + "', '" + eventName + "')"
@@ -36,27 +42,62 @@ class PNUtils: NSObject {
         return CGRectMake(left, top, width, height);
     }
     
+    static func visibilityFromProperties(properties: NSDictionary) -> Bool {
+        let style = properties["style"] as! NSDictionary
+        let displayString = style["display"] as! String
+        let visibilityString = style["visibility"] as! String
+        
+        if (displayString != "none" && visibilityString != "hidden") {
+            return true
+        }
+        
+        return false
+    }
+    
     static func backgroundColorFromProperties(properties: NSDictionary) -> UIColor {
         
         let style = properties["style"] as! NSDictionary
         let colorString = style["backgroundColor"] as! String
-        let color = UIColor(CSSString: colorString)
         
-        return color
+        let backgroundImage = style["backgroundImage"] as? String
+        
+        if (backgroundImage != nil) {
+            return UIColor(patternImage: UIImage(named: backgroundImage!)!)
+        } else {
+            return PNUtils.colorFromCSSProperty(colorString)
+        }
     }
     
     static func colorFromProperties(properties: NSDictionary) -> UIColor {
         
         let style = properties["style"] as! NSDictionary
         let colorString = style["color"] as! String
-        let color = UIColor(rgbString: colorString)
         
-        return color
+        return PNUtils.colorFromCSSProperty(colorString)
+    }
+    
+    static func colorFromCSSProperty(propertyValue: String) -> UIColor {
+        return UIColor(CSSString: propertyValue)
+    }
+    
+    static func sizeFromCSSProperty(propertyValue: String) -> Float {
+        
+        let propertyValue = propertyValue.stringByReplacingOccurrencesOfString("px", withString: "")
+        return (NSNumberFormatter().numberFromString(propertyValue)?.floatValue)!
+    }
+    
+    static func fontSizeFromProperties(properties: NSDictionary) -> Float {
+        
+        let style = properties["style"] as! NSDictionary
+        let fontSizeString = (style["fontSize"] as! String)
+        
+        return PNUtils.sizeFromCSSProperty(fontSizeString)
     }
     
     private static func tagNameToClassName(tagName: NSString) -> String {
         
-        return tagName.lowercaseString.camelCasedString
+        return tagName.lowercaseString.stringByReplacingOccurrencesOfString("native", withString: "pn", options: NSStringCompareOptions.LiteralSearch, range: nil).camelCasedString
+
     }
     
     static func tagNameToClass(tagName: NSString) -> NSObject.Type {

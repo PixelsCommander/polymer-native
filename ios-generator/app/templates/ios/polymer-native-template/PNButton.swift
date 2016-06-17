@@ -1,5 +1,5 @@
 //
-//  PNElement.swift
+//  PNButton.swift
 //  <%= name %>
 //
 //  Created by Denis Radin on 20/03/16.
@@ -29,6 +29,10 @@ class PNButton : PNBaseElement {
         //Title text
         let title = self.properties["text"] as! String
         (self.renderedComponent as! UIButton).setTitle(title, forState: UIControlState.Normal)
+        
+        //Title font
+        let fontSize = PNUtils.fontSizeFromProperties(self.properties)
+        (self.renderedComponent as! UIButton).titleLabel?.font = UIFont(name: "HelveticaNeue", size: CGFloat(fontSize))
     }
     
     override func initializeListeners() {

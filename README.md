@@ -5,7 +5,7 @@ Native UI framework based on Web Components
 
 [![Join the chat at https://gitter.im/PixelsCommander/polymer-native](https://badges.gitter.im/PixelsCommander/polymer-native.svg)](https://gitter.im/PixelsCommander/polymer-native?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Want to have a power of React Native being framework - agnostic? Here you go. Feel free to use HTML/CSS which you know so good to develop completely native applications for mobile platforms.
+Want to have superpowers of React Native without knowing all the React, Flux, Redux, Webpack? Here you go. Feel free to use HTML/CSS which you know so good and VanillaJS with any framework on top of it to develop completely native applications for mobile platforms.
 
 Motivation
 ----------
@@ -28,18 +28,24 @@ Example app index.html
 
     #submit-input {
         width: 100%;
-        height: 40px;
-        padding: 10px;
-        font-size: 16px;
-        margin-bottom:10px;
     }
 
     button {
-        color: #ffffff;
+        margin-bottom: 10px;
         width: 100%;
-        height: 40px;
-        background-color: black;
-        border-radius: 5px;
+    }
+
+    #blue-view, #red-view {
+        width: 100%;
+        height: 200px;
+    }
+
+    #blue-div {
+        background-color: blue;
+    }
+
+    #big-div {
+        background-color: red;
     }
 </style>
 

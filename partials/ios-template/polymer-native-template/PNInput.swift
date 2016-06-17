@@ -1,5 +1,5 @@
 //
-//  PNElement.swift
+//  PNInput.swift
 //  polymer-native-template
 //
 //  Created by Denis Radin on 20/03/16.

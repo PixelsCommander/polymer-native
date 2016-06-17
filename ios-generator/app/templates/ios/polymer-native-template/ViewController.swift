@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var rootNative = PolymerNative(view: self.view)
+        PolymerNative(controller: self)
     }
     
     override func viewDidLayoutSubviews() {

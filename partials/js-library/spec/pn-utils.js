@@ -24,7 +24,7 @@ var expectedChildBounds = {
 describe('polymerNativeClient.utils', function () {
 
     beforeEach(function(){
-        polymerNativeClient.utils.dropId();
+        window.polymerNativeClient.utils.dropId();
     });
 
     it('contains getNextID function which returns new string ID every time', function () {

@@ -10,7 +10,7 @@ var expectedProperties = {
 describe('PNBaseElement', function () {
 
     beforeEach(function(){
-        polymerNativeClient.utils.dropId();
+        window.polymerNativeClient.utils.dropId();
     });
 
     it('have correct polymerNative.id after created', function () {

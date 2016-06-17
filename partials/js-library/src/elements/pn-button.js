@@ -1,9 +1,10 @@
-(function (w) {
-    var proto = Object.create(HTMLButtonElement.prototype);
-    proto = Object.assign(proto, w.polymerNativeClient.PnBaseElement);
+var PnBaseElement = require('../pn-base-element.js');
+var PnUtils = require('../pn-utils.js');
 
-    w.polymerNativeClient.utils.register('button', {
-        extends: 'button',
-        prototype: proto
-    });
-}(window));
+var proto = Object.create(HTMLButtonElement.prototype);
+proto = Object.assign(proto, PnBaseElement);
+
+PnUtils.register('button', {
+    extends: 'button',
+    prototype: proto
+});

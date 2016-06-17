@@ -12,7 +12,8 @@ var BUNDLE_NAME = 'polymer-native',
     sequence = require('gulp-sequence'),
     karmaParseConfig = require('karma/lib/config').parseConfig,
     bump = require('gulp-bump'),
-    spawn = require('child_process').spawn;
+    spawn = require('child_process').spawn,
+    browserify = require('gulp-browserify');
 
 function runKarma(configFilePath, options, cb) {
 
@@ -51,15 +52,36 @@ gulp.task('test-dev', function (cb) {
 
 /** BUILD JS */
 
-gulp.task('buildjs', function () {
-    gulp.src(['node_modules/webcomponents.js/webcomponents-lite.min.js', './partials/js-library/src/pn-utils.js', './partials/js-library/src/pn-base-element.js', './partials/js-library/src/elements/*.js'])
-        .pipe(concat(BUNDLE_NAME + '.js'))
+gulp.task('cleanjs', function () {
+    return gulp.src('./partials/js-library/dist/*.*')
+        .pipe(clean());
+});
+
+gulp.task('compilejs', function () {
+    return gulp.src('./partials/js-library/src/polymer-native.js')
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: true
+        }))
         .pipe(gulp.dest('./partials/js-library/dist/'))
         .pipe(uglify(BUNDLE_NAME + '.min.js'))
         .pipe(gulp.dest('./partials/js-library/dist/'));
+})
+
+gulp.task('buildjs', function (done) {
+    return sequence(
+        'cleanjs',
+        'compilejs',
+        done
+    );
 });
 
 /** BUILD IOS GENERATOR */
+
+gulp.task('cleanweb', function () {
+    return gulp.src('./partials/www/js/', {read: false})
+        .pipe(clean());
+});
 
 gulp.task('copyjstoweb', function () {
     return gulp.src('./partials/js-library/dist/*.*')
@@ -85,8 +107,9 @@ gulp.task('copywebtoiosgen', function () {
         .pipe(gulp.dest('./ios-generator/app/templates/www'));
 });
 
-gulp.task('updateiosgenerator', function (done) {
+gulp.task('updateiosgen', function (done) {
     return sequence(
+        'cleanweb',
         'cleaniosgen',
         'buildjs',
         'copyjstoweb',
@@ -98,9 +121,13 @@ gulp.task('updateiosgenerator', function (done) {
 
 /** DEV */
 
-gulp.task('develop', function () {
-    watch('./partials/js-library/src/*.js', function () {
-        return gulp.run('buildjs');
+gulp.task('develop', function (done) {
+    watch('./partials/js-library/src/**/*.js', function () {
+        return gulp.run('updateiosgen');
+    });
+
+    watch(['./partials/www/index.html', './partials/www/css/*.css'], function () {
+        return gulp.run('updateiosgen');
     });
 });
 
@@ -119,8 +146,8 @@ gulp.task('npm-install', function (done) {
 });
 
 gulp.task('release', function () {
-    return sequence('updateiosgenerator' ,'bump', 'npm-publish', 'npm-install', function (cb) {
+    return sequence('updateiosgen', 'bump', 'npm-publish', 'npm-install', function (cb) {
     });
 });
 
-gulp.task('default', ['test-dev', 'develop']);
+gulp.task('default', ['updateiosgen', /* 'test-dev',*/ 'develop']);

@@ -1,13 +1,14 @@
-(function(w) {
-    var proto = Object.create(HTMLInputElement.prototype);
-    proto = Object.assign(proto, w.polymerNativeClient.PnBaseElement);
+var PnBaseElement = require('../pn-base-element.js');
+var PnUtils = require('../pn-utils.js');
 
-    proto.setValue = function(value) {
-        this.value = value;
-    }
+var proto = Object.create(HTMLInputElement.prototype);
+proto = Object.assign(proto, PnBaseElement);
 
-    w.polymerNativeClient.utils.register('input' , {
-        extends: 'input',
-        prototype: proto
-    });
-}(window));
+proto.setValue = function (value) {
+    this.value = value;
+}
+
+PnUtils.register('input', {
+    extends: 'input',
+    prototype: proto
+});

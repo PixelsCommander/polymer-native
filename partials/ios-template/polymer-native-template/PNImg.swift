@@ -1,5 +1,5 @@
 //
-//  PNElement.swift
+//  PNImg.swift
 //  polymer-native-template
 //
 //  Created by Denis Radin on 20/03/16.
@@ -18,7 +18,7 @@ class PNImg : PNBaseElement {
     override func update() {
         super.update()
         
-        //Title text
+        //Image source
         let src = PNUtils.webPathToAppPath(self.properties["src"] as! String)
         let image = UIImage(named:src)
         (self.renderedComponent as! UIImageView).image = image

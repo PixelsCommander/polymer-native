@@ -15,22 +15,20 @@ class PolymerNative : NSObject {
     
     static var instance : PolymerNative!
     
-    var deployView : UIView!
-    var rootPNView : PNView!
-    
-    var containerView : UIView!
-    var scrollView : UIScrollView!
+    var rootController : UIViewController!
+    var rootView : UIView!
+    var rootPNView : PNRoot!
     var webview: WKWebView = WKWebView()
     
-    init(view : UIView) {
+    init(controller : UIViewController) {
         super.init()
         
         PolymerNative.instance = self
         
-        self.deployView = view
-        self.rootPNView = PNView(id: "root", properties: nil)
-        self.rootPNView.create(self.deployView)
-        self.rootPNView.mount()
+        self.rootController = controller
+        self.rootView = controller.view
+        self.rootPNView = PNRoot(id: "root", properties: nil)
+        self.rootPNView.create(controller)
         
         dispatch_async(dispatch_get_main_queue(), {
             self.initWebView()
@@ -38,22 +36,23 @@ class PolymerNative : NSObject {
     }
     
     func initWebView() {
-        self.webview = WKWebView(frame: self.deployView.frame, configuration: WKWebViewConfiguration())
+        self.webview = self.rootPNView.webView as WKWebView
         self.webview.loadPlugin(PolymerNative.instance!, namespace: "polymerNativeHost")
         let root = NSBundle.mainBundle().resourceURL!
         let url = root.URLByAppendingPathComponent("./www/index.html")
         self.webview.loadFileURL(url, allowingReadAccessToURL: root)
-        self.webview.hidden = true
-        self.webview.userInteractionEnabled = false
-        self.deployView.addSubview(self.webview)
+        
+        self.rootView.sendSubviewToBack(self.webview)
+        self.rootPNView.renderedComponent = self.webview.scrollView;
     }
     
     func createElement(elementData: AnyObject?) {
         do {
+            //By default parentId == root which is self.rootPNView.renderedComponent
             var parentId = "root"
             let data = (elementData as? String)!.dataUsingEncoding(NSUTF8StringEncoding)
             let propertiesDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! NSDictionary
-            let elementClass = PNUtils.tagNameToClass((propertiesDictionary)["name"] as! String)
+            let elementClass = PNUtils.tagNameToClass((propertiesDictionary)["tagName"] as! String)
             let element = (elementClass as! PNBaseElement.Type).init(id: propertiesDictionary["id"] as! String, properties: propertiesDictionary)
             
             //Setting up parentId which got from browser
@@ -68,7 +67,21 @@ class PolymerNative : NSObject {
         } catch {
             print("error serializing JSON: \(error)")
         }
-        
+    }
+    
+    func updateElement(elementData: AnyObject?) {
+        do {
+            let data = (elementData as? String)!.dataUsingEncoding(NSUTF8StringEncoding)
+            let propertiesDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! NSDictionary
+            let element:PNBaseElement = PNBaseElement.getById(propertiesDictionary["id"] as! String)
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                element.updateProperties(propertiesDictionary)
+                element.update()
+            })
+        } catch {
+            print("error serializing JSON: \(error)")
+        }
     }
     
     func removeElement(id: String) {
@@ -78,12 +91,27 @@ class PolymerNative : NSObject {
         })
     }
     
+    func activateRoute(id: String) {
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            let element:PNRoute = PNBaseElement.getById(id) as! PNRoute
+            element.renderedComponent.hidden = false
+            
+            (element.parentPNView as! PNRouter).navigationController.pushViewController(element.viewController, animated: (element.parentPNView as! PNRouter).navigationController.viewControllers.count > 0)
+        }
+    }
+    
     func alert(text: AnyObject?) {
         let title = text as? String
         dispatch_async(dispatch_get_main_queue()) {
             let alert = UIAlertView(title: title, message: nil, delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
+    }
+    
+    func log(text: AnyObject?) {
+        let title = text as! String
+        print("Log: " + title)
     }
     
 }
