@@ -62,7 +62,8 @@ class PNUtils: NSObject {
         let backgroundImage = style["backgroundImage"] as? String
         
         if (backgroundImage != nil) {
-            return UIColor(patternImage: UIImage(named: backgroundImage!)!)
+            return PNUtils.colorFromCSSProperty(colorString)
+            //return UIColor(patternImage: UIImage(named: backgroundImage!)!)
         } else {
             return PNUtils.colorFromCSSProperty(colorString)
         }
@@ -137,15 +138,15 @@ extension UIColor {
         let list = component.filter({ $0 != "" })
         
         if let rNum = NSNumberFormatter().numberFromString(list[0]) {
-            r = CGFloat(rNum)
+            r = CGFloat(rNum) / 255.0
         }
         
         if let gNum = NSNumberFormatter().numberFromString(list[1]) {
-            g = CGFloat(gNum)
+            g = CGFloat(gNum) / 255.0
         }
         
         if let bNum = NSNumberFormatter().numberFromString(list[2]) {
-            b = CGFloat(bNum)
+            b = CGFloat(bNum) / 255.0
         }
         
         if (list.count == 4) {

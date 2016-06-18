@@ -1,4 +1,5 @@
 body {
+    background-color: orange;
     margin: 20px;
 }
 
@@ -33,8 +34,6 @@ button {
 native-route[path="#lena"] {
     background-image: url('../img/pattern.png');
 }
-
-native-route
 
 .header {
     font-size: 36px;
