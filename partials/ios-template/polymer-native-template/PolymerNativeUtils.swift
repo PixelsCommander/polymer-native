@@ -59,11 +59,13 @@ class PNUtils: NSObject {
         let style = properties["style"] as! NSDictionary
         let colorString = style["backgroundColor"] as! String
         
-        let backgroundImage = style["backgroundImage"] as? String
+        let backgroundImage = style["backgroundImage"] as? NSString
         
         if (backgroundImage != nil) {
-            return PNUtils.colorFromCSSProperty(colorString)
-            //return UIColor(patternImage: UIImage(named: backgroundImage!)!)
+            let bundleURL = NSBundle.mainBundle().bundleURL.absoluteString
+            let fileName = backgroundImage!.stringByReplacingOccurrencesOfString(bundleURL, withString: "")
+            let image = UIImage(named:fileName)
+            return UIColor(patternImage: image!)
         } else {
             return PNUtils.colorFromCSSProperty(colorString)
         }
