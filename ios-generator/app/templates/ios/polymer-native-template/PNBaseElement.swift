@@ -46,6 +46,7 @@ class PNBaseElement : NSObject {
     
     func update() {
         if (self.properties.count != 0) {
+            
             //Frame
             self.renderedComponent.frame = PNUtils.rectFromProperties(self.properties)
             

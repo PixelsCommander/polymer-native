@@ -57,7 +57,8 @@ var utils = {
                 color: style.color,
                 borderRadius: style.borderRadius,
                 borderColor: style.borderColor,
-                borderWidth: style.borderWidth
+                borderWidth: style.borderWidth,
+                textAlign: style.textAlign
             },
             text: text,
             src: src,

@@ -14,6 +14,8 @@
 		0113144E1C9E009B00443CE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0113144D1C9E009B00443CE9 /* Assets.xcassets */; };
 		011314511C9E009B00443CE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0113144F1C9E009B00443CE9 /* LaunchScreen.storyboard */; };
 		0121A27F1CDF831E00B29754 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 0121A27E1CDF831E00B29754 /* www */; };
+		0130A84E1D21A3C900254B59 /* PNCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130A84D1D21A3C900254B59 /* PNCheckbox.swift */; };
+		0130A8511D21A78800254B59 /* PNInteractiveElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130A8501D21A78800254B59 /* PNInteractiveElement.swift */; };
 		01370C111CFB249A003B0085 /* PNRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01370C101CFB249A003B0085 /* PNRouter.swift */; };
 		01370C131CFB2661003B0085 /* PNRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01370C121CFB2661003B0085 /* PNRoute.swift */; };
 		013A92131D06090B008F0F75 /* PNRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A92121D06090B008F0F75 /* PNRoot.swift */; };
@@ -40,6 +42,8 @@
 		011314521C9E009B00443CE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011314581C9E00AA00443CE9 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0121A27E1CDF831E00B29754 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
+		0130A84D1D21A3C900254B59 /* PNCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNCheckbox.swift; sourceTree = "<group>"; };
+		0130A8501D21A78800254B59 /* PNInteractiveElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNInteractiveElement.swift; sourceTree = "<group>"; };
 		01370C101CFB249A003B0085 /* PNRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRouter.swift; sourceTree = "<group>"; };
 		01370C121CFB2661003B0085 /* PNRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRoute.swift; sourceTree = "<group>"; };
 		013A92121D06090B008F0F75 /* PNRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRoot.swift; sourceTree = "<group>"; };
@@ -107,6 +111,16 @@
 			path = "polymer-native-template";
 			sourceTree = "<group>";
 		};
+		0130A84F1D21A5DC00254B59 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				018FC1B21CBC299E000B3D58 /* PNView.swift */,
+				01E483281CA33A2300C4C9B7 /* PNBaseElement.swift */,
+				0130A8501D21A78800254B59 /* PNInteractiveElement.swift */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
 		01370C0F1CFB2478003B0085 /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,13 +133,13 @@
 		01E483231CA31AB300C4C9B7 /* TagsStrategies */ = {
 			isa = PBXGroup;
 			children = (
+				0130A84F1D21A5DC00254B59 /* Base */,
 				01370C0F1CFB2478003B0085 /* Router */,
 				01E483241CA32FE700C4C9B7 /* PNButton.swift */,
+				0130A84D1D21A3C900254B59 /* PNCheckbox.swift */,
 				01FE6B7F1CA49620000C1542 /* PNImg.swift */,
-				018FC1B21CBC299E000B3D58 /* PNView.swift */,
 				013A92121D06090B008F0F75 /* PNRoot.swift */,
 				01E4832C1CA4830000C4C9B7 /* PNInput.swift */,
-				01E483281CA33A2300C4C9B7 /* PNBaseElement.swift */,
 				0102F7221CFB6C54002DA358 /* PNLabel.swift */,
 			);
 			name = TagsStrategies;
@@ -277,6 +291,7 @@
 				01370C131CFB2661003B0085 /* PNRoute.swift in Sources */,
 				0102F7231CFB6C54002DA358 /* PNLabel.swift in Sources */,
 				01FE6B801CA49620000C1542 /* PNImg.swift in Sources */,
+				0130A84E1D21A3C900254B59 /* PNCheckbox.swift in Sources */,
 				01370C111CFB249A003B0085 /* PNRouter.swift in Sources */,
 				01E483201C9EEB3700C4C9B7 /* PolymerNative.swift in Sources */,
 				011314491C9E009B00443CE9 /* ViewController.swift in Sources */,
@@ -284,6 +299,7 @@
 				01E4832B1CA33B4F00C4C9B7 /* PolymerNativeUtils.swift in Sources */,
 				018FC1B31CBC299E000B3D58 /* PNView.swift in Sources */,
 				011314471C9E009B00443CE9 /* AppDelegate.swift in Sources */,
+				0130A8511D21A78800254B59 /* PNInteractiveElement.swift in Sources */,
 				01E483291CA33A2300C4C9B7 /* PNBaseElement.swift in Sources */,
 				013A92131D06090B008F0F75 /* PNRoot.swift in Sources */,
 			);

@@ -39,7 +39,7 @@ class PNUtils: NSObject {
         let width = bounds["width"] as! CGFloat
         let height = bounds["height"] as! CGFloat
         
-        return CGRectMake(left, top, width, height);
+        return CGRectMake(left, top, width + 5.0, height);
     }
     
     static func visibilityFromProperties(properties: NSDictionary) -> Bool {
@@ -59,11 +59,13 @@ class PNUtils: NSObject {
         let style = properties["style"] as! NSDictionary
         let colorString = style["backgroundColor"] as! String
         
-        let backgroundImage = style["backgroundImage"] as? String
+        let backgroundImage = style["backgroundImage"] as? NSString
         
         if (backgroundImage != nil) {
-            return PNUtils.colorFromCSSProperty(colorString)
-            //return UIColor(patternImage: UIImage(named: backgroundImage!)!)
+            let bundleURL = NSBundle.mainBundle().bundleURL.absoluteString
+            let fileName = backgroundImage!.stringByReplacingOccurrencesOfString(bundleURL, withString: "")
+            let image = UIImage(named:fileName)
+            return UIColor(patternImage: image!)
         } else {
             return PNUtils.colorFromCSSProperty(colorString)
         }
@@ -75,6 +77,24 @@ class PNUtils: NSObject {
         let colorString = style["color"] as! String
         
         return PNUtils.colorFromCSSProperty(colorString)
+    }
+    
+    static func textAlignFromProperties(properties: NSDictionary) -> NSTextAlignment {
+        
+        let style = properties["style"] as! NSDictionary
+        let propertyValue = style["textAlign"] as! String
+        
+        var result = NSTextAlignment.Left
+        
+        if (propertyValue == "center") {
+            result = NSTextAlignment.Center
+        }
+        
+        if (propertyValue == "right") {
+            result = NSTextAlignment.Right
+        }
+        
+        return result
     }
     
     static func colorFromCSSProperty(propertyValue: String) -> UIColor {

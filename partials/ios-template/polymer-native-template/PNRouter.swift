@@ -15,10 +15,12 @@ class PNRouter : PNView, UINavigationControllerDelegate {
     var viewController = UIViewController(nibName: nil, bundle: nil)
     var navigationController : UINavigationController = UINavigationController()
     var contentFrame : CGRect!
+    var viewControllerCount : Int = 0
     
     override func create() {
         
         self.renderedComponent = self.navigationController.view
+        self.navigationController.delegate = self
     }
     
     override func update() {
@@ -45,5 +47,17 @@ class PNRouter : PNView, UINavigationControllerDelegate {
         PolymerNative.instance.rootController.addChildViewController(self.navigationController)
         PolymerNative.instance.rootPNView.renderedComponent.addSubview(self.navigationController.view)
         self.initializeListeners()
+    }
+    
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        
+        let viewControllers = self.navigationController.viewControllers;
+        
+        if (self.viewControllerCount > viewControllers.count) {
+            PNUtils.backHistory()
+        }
+        
+        self.viewControllerCount = viewControllers.count;
+        
     }
 }

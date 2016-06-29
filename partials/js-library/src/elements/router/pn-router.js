@@ -1,10 +1,11 @@
 var History = require('history');
-var PnBaseElement = require('../../pn-base-element.js');
+var PnBaseElement = require('../base/pn-base-element.js');
 var PnUtils = require('../../pn-utils.js');
 
 //polymerNativeClient should be global to be able to call it from native code
 window.polymerNativeClient = window.polymerNativeClient || {};
 
+var syncingHistoryWithNative = false;
 var proto = Object.create(HTMLDivElement.prototype);
 proto = Object.assign(proto, PnBaseElement);
 
@@ -20,8 +21,7 @@ proto.attachedCallback = function () {
 }
 
 proto.initHistory = function () {
-    window.polymerNativeClient.hisory = this.history = window.polymerNativeClient.hisory || History.createHistory();
-    this.history.listen(this.onHistoryChanged.bind(this));
+    window.addEventListener('popstate', this.onHistoryChanged.bind(this));
 }
 
 proto.onHistoryChanged = function (historyState, route) {
@@ -29,11 +29,11 @@ proto.onHistoryChanged = function (historyState, route) {
     var routeToActivate = null;
 
     if (route) {
-        result = historyState.hash.match(route.pathRegexp);
+        result = location.hash.match(route.pathRegexp);
         result && result.length && (routeToActivate = route);
     } else if (this.routes) {
         this.routes.forEach(function (route) {
-            result = historyState.hash.match(route.pathRegexp);
+            result = location.hash.match(route.pathRegexp);
             result && result.length && (routeToActivate = route);
         });
     }
@@ -56,16 +56,20 @@ proto.activateRoute = function (route) {
         if (route === routeIterator) {
             if (self.activeRoute !== route) {
                 self.activeRoute = route;
-                route.activate();
+                route.activate(syncingHistoryWithNative);
             }
         } else {
-            routeIterator.deactivate();
+            routeIterator.deactivate(syncingHistoryWithNative);
         }
     });
 }
 
 window.polymerNativeClient.back = function () {
-    alert('Back');
+    syncingHistoryWithNative = true;
+    window.history.back();
+    setTimeout(function(){
+        syncingHistoryWithNative = false;
+    }, 0);
 }
 
 PnUtils.register('router', {

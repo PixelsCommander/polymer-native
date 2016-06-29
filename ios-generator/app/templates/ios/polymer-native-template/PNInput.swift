@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ActionKit
 
-class PNInput : PNBaseElement {
+class PNInput : PNInteractiveElement {
 
     override func create() {
         self.renderedComponent = UITextField()

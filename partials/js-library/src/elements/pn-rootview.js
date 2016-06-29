@@ -1,4 +1,4 @@
-var PnBaseElement = require('../pn-base-element.js');
+var PnBaseElement = require('./base/pn-base-element.js');
 var PnUtils = require('../pn-utils.js');
 
 window.addEventListener('load', function(){

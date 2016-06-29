@@ -1,5 +1,5 @@
 var pathToRegexp = require('path-to-regexp');
-var PnBaseElement = require('../../pn-base-element.js');
+var PnBaseElement = require('../base/pn-base-element.js');
 var PnUtils = require('../../pn-utils.js');
 
 var proto = Object.create(HTMLDivElement.prototype);
@@ -29,22 +29,24 @@ proto.attachedCallback = function () {
     }, 100);
 }
 
-proto.activate = function () {
+proto.activate = function (skipNative) {
     var self = this;
 
     this.activationPromise.then(function(){
-        console.log('Activating ', self.id);
+        console.log('Activating ' + self.id + ' , skipping native = ' + skipNative);
         if (window.polymerNativeHost) {
-            window.polymerNativeHost.activateRoute(self.polymerNative.id);
+            if (!skipNative) {
+                window.polymerNativeHost.activateRoute(self.polymerNative.id);
+            }
         } else {
             self.style.visibility = 'visible';
         }
     });
 }
 
-proto.deactivate = function () {
-    console.log('Deactivating ', this.id);
-    if (!window.polymerNativeHost) {
+proto.deactivate = function (skipNative) {
+    console.log('Deactivating ' + this.id + ' , skipping native = ' + skipNative);
+    if (!window.polymerNativeHost && !skipNative) {
         this.style.visibility = 'hidden';
     }
 }

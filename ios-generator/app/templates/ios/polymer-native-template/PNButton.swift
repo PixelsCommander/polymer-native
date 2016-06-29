@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ActionKit
 
-class PNButton : PNBaseElement {
+class PNButton : PNInteractiveElement {
     
     override func create() {
         self.renderedComponent = UIButton(type: UIButtonType.System)
@@ -18,10 +18,6 @@ class PNButton : PNBaseElement {
     
     override func update() {
         super.update()
-        
-        //Border
-        (self.renderedComponent as! UIButton).layer.cornerRadius = 5;
-        //(self.renderedComponent as! UIButton).clipsToBounds = true;
         
         //Title color
         (self.renderedComponent as! UIButton).setTitleColor(PNUtils.colorFromProperties(self.properties), forState: UIControlState.Normal)
@@ -33,15 +29,5 @@ class PNButton : PNBaseElement {
         //Title font
         let fontSize = PNUtils.fontSizeFromProperties(self.properties)
         (self.renderedComponent as! UIButton).titleLabel?.font = UIFont(name: "HelveticaNeue", size: CGFloat(fontSize))
-    }
-    
-    override func initializeListeners() {
-        super.initializeListeners()
-        (self.renderedComponent as! UIButton).userInteractionEnabled = true
-        (self.renderedComponent as! UIButton).addControlEvent(.TouchUpInside) { self.clicked() }
-    }
-    
-    @objc func clicked() {
-        PNUtils.dispatchEventOnDOM(self.id, eventName: "click");
     }
 }

@@ -23,8 +23,8 @@ class PNLabel : PNBaseElement {
         (self.renderedComponent as! UILabel).text = title
         
         //Aligment
-        (self.renderedComponent as! UILabel).textAlignment = NSTextAlignment.Center
-        
+        (self.renderedComponent as! UILabel).textAlignment = PNUtils.textAlignFromProperties(self.properties)
+            
         //Color
         (self.renderedComponent as! UILabel).textColor = PNUtils.colorFromProperties(self.properties)
         
