@@ -22,17 +22,8 @@
 
 
 <native-router fullscreen="true">
-    <native-route path="/" title="Main page" id="main-page">
-        <native-label class="header">
-            Lenna
-        </native-label>
-        <native-label class="description">
-            Lenna or Lena is the name given to a standard test image widely used in the field of image processing since 1973.[1] It is a picture of Lena Soderberg, shot by photographer Dwight Hooker, cropped from the centerfold of the November 1972 issue of Playboy magazine. The spelling "Lenna" comes from the anglicisation used in the original Playboy article.
-        </native-label>
-        <button is="native-button" onclick="location.hash = 'lena'">To second page</button>
-    </native-route>
-    <native-route path="#lena" title="Controls" id="form-page">
-        <input id="submit-input-native" is="native-input" value="Native input"></input>
+    <native-route path="/lena" title="Controls" id="form-page">
+        <input id="submit-input-native" is="native-input" value="Native input" />
         <div class="checkbox-line">
             <input type="checkbox" is="native-checkbox" selected="false"/><native-label id="checkbox-label">My checkbox</native-label>
         </div>
@@ -43,6 +34,13 @@
             <button is="native-button">Inner button</button>
         </native-view>
     </native-route>
+    <native-default title="Main page" id="main-page">
+        <native-label class="header">Lenna</native-label>
+        <native-label class="description">
+            Lenna or Lena is the name given to a standard test image widely used in the field of image processing since 1973.[1] It is a picture of Lena Soderberg, shot by photographer Dwight Hooker, cropped from the centerfold of the November 1972 issue of Playboy magazine. The spelling "Lenna" comes from the anglicisation used in the original Playboy article.
+        </native-label>
+        <button is="native-button" onclick="location.hash = '/lena'">To second page</button>
+    </native-default>
 </native-router>
 </body>
 </html>

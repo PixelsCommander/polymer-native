@@ -1,4 +1,5 @@
-var History = require('history');
+var RebelRouter = require('../../../../../../rebel-router/es5/rebel-router.js').RebelRouter;
+// var History = require('history');
 var PnBaseElement = require('../base/pn-base-element.js');
 var PnUtils = require('../../pn-utils.js');
 
@@ -6,63 +7,100 @@ var PnUtils = require('../../pn-utils.js');
 window.polymerNativeClient = window.polymerNativeClient || {};
 
 var syncingHistoryWithNative = false;
-var proto = Object.create(HTMLDivElement.prototype);
-proto = Object.assign(proto, PnBaseElement);
 
-proto.createdCallback = function () {
-    PnBaseElement.createdCallback.apply(this);
-    this.activeRoute = null;
-    this.initHistory();
-}
+var Router = (function (_RebelRouter) {
 
-proto.attachedCallback = function () {
-    PnBaseElement.attachedCallback.apply(this);
-    this.style.visibility = 'visible';
-}
+    Router.prototype = Object.create(_RebelRouter && _RebelRouter.prototype);
 
-proto.initHistory = function () {
-    window.addEventListener('popstate', this.onHistoryChanged.bind(this));
-}
+    function Router() {
 
-proto.onHistoryChanged = function (historyState, route) {
-    var result = null;
-    var routeToActivate = null;
-
-    if (route) {
-        result = location.hash.match(route.pathRegexp);
-        result && result.length && (routeToActivate = route);
-    } else if (this.routes) {
-        this.routes.forEach(function (route) {
-            result = location.hash.match(route.pathRegexp);
-            result && result.length && (routeToActivate = route);
-        });
+        return Object.getPrototypeOf(Router).apply(this);
     }
 
-    routeToActivate && this.activateRoute(routeToActivate);
+    Router.prototype.createdCallback = function() {
+        Object.getPrototypeOf(Router.prototype).createdCallback.call(this, "native");
+        PnBaseElement.createdCallback();
+    };
 
-    this.historyState = historyState;
-}
+    Router.prototype.attachedCallback = function() {
+        Object.getPrototypeOf(Router.prototype).attachedCallback.call(this, "native");
+        PnBaseElement.attachedCallback();
+    };
 
-proto.registerRoute = function (route) {
-    this.routes = this.routes || [];
-    this.routes.push(route);
-    this.onHistoryChanged(this.historyState, route);
-}
+    return Router;
 
-proto.activateRoute = function (route) {
-    var self = this;
+})(RebelRouter);
 
-    this.routes.forEach(function (routeIterator) {
-        if (route === routeIterator) {
-            if (self.activeRoute !== route) {
-                self.activeRoute = route;
-                route.activate(syncingHistoryWithNative);
-            }
-        } else {
-            routeIterator.deactivate(syncingHistoryWithNative);
-        }
-    });
-}
+
+
+
+// var proto = {};
+//
+// //Object.create(HTMLElement.prototype);
+// proto.prototype = Object.create(RebelRouter && RebelRouter.prototype, { constructor: { value: proto, enumerable: false, writable: true, configurable: true } });
+// console.log("PROTO:", proto);
+// //proto = Object.assign(proto, PnBaseElement);
+// proto.createdCallback = function () {
+//     Object.getPrototypeOf(proto.prototype).createdCallback.call(this);
+//     //this.prototype.createdCallback.apply(this.prototype);
+//     //RebelRouter.createdCallback.apply(this);
+//     //this.prototype.createdCallback.apply(this);
+//     //console.log();
+//     //this.prototype.createdCallback();
+//     //console.log("PN CREATED!");
+//     //PnBaseElement.createdCallback.apply(this);
+//     //this.activeRoute = null;
+//     //this.initHistory();
+// }
+// //
+// // proto.attachedCallback = function () {
+// //     //PnBaseElement.attachedCallback.apply(this);
+// //     //this.style.visibility = 'visible';
+// // }
+//
+// // proto.initHistory = function () {
+// //     window.addEventListener('popstate', this.onHistoryChanged.bind(this));
+// // }
+// //
+// // proto.onHistoryChanged = function (historyState, route) {
+// //     var result = null;
+// //     var routeToActivate = null;
+// //
+// //     if (route) {
+// //         result = location.hash.match(route.pathRegexp);
+// //         result && result.length && (routeToActivate = route);
+// //     } else if (this.routes) {
+// //         this.routes.forEach(function (route) {
+// //             result = location.hash.match(route.pathRegexp);
+// //             result && result.length && (routeToActivate = route);
+// //         });
+// //     }
+// //
+// //     routeToActivate && this.activateRoute(routeToActivate);
+// //
+// //     this.historyState = historyState;
+// // }
+// //
+// // proto.registerRoute = function (route) {
+// //     this.routes = this.routes || [];
+// //     this.routes.push(route);
+// //     this.onHistoryChanged(this.historyState, route);
+// // }
+// //
+// // proto.activateRoute = function (route) {
+// //     var self = this;
+// //
+// //     this.routes.forEach(function (routeIterator) {
+// //         if (route === routeIterator) {
+// //             if (self.activeRoute !== route) {
+// //                 self.activeRoute = route;
+// //                 route.activate(syncingHistoryWithNative);
+// //             }
+// //         } else {
+// //             routeIterator.deactivate(syncingHistoryWithNative);
+// //         }
+// //     });
+// // }
 
 window.polymerNativeClient.back = function () {
     syncingHistoryWithNative = true;
@@ -73,5 +111,5 @@ window.polymerNativeClient.back = function () {
 }
 
 PnUtils.register('router', {
-    prototype: proto
+    prototype: Router.prototype
 });
