@@ -1,4 +1,4 @@
-var RebelRouter = require('../../../../../../rebel-router/es5/rebel-router.js').RebelRouter;
+var RebelRouter = require('../../../../../node_modules/rebel-router/es5/rebel-router.js').RebelRouter;
 var PnBaseElement = require('../base/pn-base-element.js');
 var PnUtils = require('../../pn-utils.js');
 
