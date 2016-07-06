@@ -17,24 +17,10 @@ var Router = (function (_RebelRouter) {
     Router.prototype.createdCallback = function() {
         PnBaseElement.createdCallback.apply(this);
         Object.getPrototypeOf(Router.prototype).createdCallback.call(this, "native");
-        if (this.routes !== undefined && Object.keys(this.routes).length !== 0) {
-            for (var path in this.routes) {
-                PnBaseElement.createdCallback.call(this.routes[path]);
-            }
-        }
     };
 
     Router.prototype.attachedCallback = function() {
         PnBaseElement.attachedCallback.call(this);
-        if (window.polymerNativeHost) {
-            var $scope = this;
-            _RebelRouter.pathChange(function () {
-                var _current = $scope.current();
-                if (_current !== null && _current.polymerNative !== undefined) {
-                    window.polymerNativeHost.activateRoute(_current.polymerNative.id);
-                }
-            });
-        }
     };
 
     return Router;

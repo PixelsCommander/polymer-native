@@ -41,7 +41,6 @@ native-router {
 
 native-route {
     display: block;
-    visibility: hidden;
     position:absolute;
     left:0;
     top:0;

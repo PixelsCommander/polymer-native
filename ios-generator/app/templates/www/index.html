@@ -29,9 +29,15 @@
         </div>
         <button onclick="alert(document.getElementById('submit-input-native').value);" is="native-button">Alert native input</button>
         <button onclick="document.getElementById('blue-div').parentNode.removeChild(document.getElementById('blue-div'))" is="native-button">Remove blue div</button>
+        <button is="native-button" onclick="location.hash = '/'">Go back</button>
         <native-view id="blue-div"></native-view>
         <native-view id="red-div">
             <button is="native-button">Inner button</button>
+        </native-view>
+    </native-route>
+    <native-route path="/test">
+        <native-view id="red-div">
+            <button is="native-button" onclick="location.hash = '/'">To first page</button>
         </native-view>
     </native-route>
     <native-default title="Main page" id="main-page">
@@ -40,6 +46,7 @@
             Lenna or Lena is the name given to a standard test image widely used in the field of image processing since 1973.[1] It is a picture of Lena Soderberg, shot by photographer Dwight Hooker, cropped from the centerfold of the November 1972 issue of Playboy magazine. The spelling "Lenna" comes from the anglicisation used in the original Playboy article.
         </native-label>
         <button is="native-button" onclick="location.hash = '/lena'">To second page</button>
+        <button is="native-button" onclick="location.hash = '/test'">To test page</button>
     </native-default>
 </native-router>
 </body>
