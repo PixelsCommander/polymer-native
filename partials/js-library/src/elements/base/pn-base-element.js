@@ -44,12 +44,18 @@ PnBaseElement.updateSerializedProperties = function () {
 }
 
 PnBaseElement.getPNParent = function () {
+    return this.getParent(function(parent){
+        return parent && parent.polymerNative;
+    });
+}
+
+PnBaseElement.getParent = function (predicate) {
     var parent = this;
 
     while (parent) {
         parent = parent.parentNode;
 
-        if (parent && parent.polymerNative) {
+        if (predicate(parent)) {
             return parent;
         } else if (parent === window.document) {
             return null;
@@ -74,13 +80,17 @@ PnBaseElement.onResize = function () {
 }
 
 PnBaseElement.onMutations = function (mutations) {
+    console.log('Get mutations');
     for (var i = 0; i < mutations.length; i++) {
         var mutation = mutations[i];
 
         console.log('Mutated ' + mutation.target.tagName);
 
         var structureChanged = mutation.removedNodes.length || mutation.addedNodes.length;
-        mutation.target.update(structureChanged);
+
+        if (mutation.target.polymerNative) {
+            mutation.target.update(structureChanged);
+        }
     }
 }
 
@@ -90,8 +100,7 @@ PnBaseElement.initializeObserver = function () {
             childList: true,
             characterData: true,
             subtree: true,
-            attributes: true,
-            attributeFilter: ['style']
+            attributes: true
         };
 
     this.observer = this.observer || new MutationObserver(PnBaseElement.onMutations);

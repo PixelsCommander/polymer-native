@@ -41,9 +41,6 @@ class PolymerNative : NSObject {
         let root = NSBundle.mainBundle().resourceURL!
         let url = root.URLByAppendingPathComponent("./www/index.html")
         self.webview.loadFileURL(url, allowingReadAccessToURL: root)
-        
-        self.rootView.sendSubviewToBack(self.webview)
-        self.rootPNView.renderedComponent = self.webview.scrollView;
     }
     
     func createElement(elementData: AnyObject?) {
@@ -97,7 +94,12 @@ class PolymerNative : NSObject {
             let element:PNRoute = PNBaseElement.getById(id) as! PNRoute
             element.renderedComponent.hidden = false
             
-            (element.parentPNView as! PNRouter).navigationController.pushViewController(element.viewController, animated: (element.parentPNView as! PNRouter).navigationController.viewControllers.count > 0)
+            let navigationController = (element.parentPNView as! PNRouter).navigationController
+            let isFirstInStack = (element.parentPNView as! PNRouter).navigationController.viewControllers.count == 0
+            let hideFirstBar = (element.parentPNView as! PNRouter).getAttribute("hideFirstBar") == "true"
+            
+            navigationController.pushViewController(element.viewController, animated: !isFirstInStack)
+            navigationController.navigationBarHidden = isFirstInStack && hideFirstBar
         }
     }
     

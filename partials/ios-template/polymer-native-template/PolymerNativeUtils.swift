@@ -39,7 +39,7 @@ class PNUtils: NSObject {
         let width = bounds["width"] as! CGFloat
         let height = bounds["height"] as! CGFloat
         
-        return CGRectMake(left, top, width + 5.0, height);
+        return CGRectMake(left, top, width, height);
     }
     
     static func visibilityFromProperties(properties: NSDictionary) -> Bool {
@@ -52,7 +52,7 @@ class PNUtils: NSObject {
         }
         
         return false
-    }
+    } 
     
     static func backgroundColorFromProperties(properties: NSDictionary) -> UIColor {
         

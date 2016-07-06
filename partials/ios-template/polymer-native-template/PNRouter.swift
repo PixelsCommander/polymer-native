@@ -21,6 +21,7 @@ class PNRouter : PNView, UINavigationControllerDelegate {
         
         self.renderedComponent = self.navigationController.view
         self.navigationController.delegate = self
+        //self.navigationController.automaticallyAdjustsScrollViewInsets = false;
     }
     
     override func update() {
@@ -30,11 +31,18 @@ class PNRouter : PNView, UINavigationControllerDelegate {
         let fullscreen = (self.properties["attributes"] as! NSDictionary)["fullscreen"] as! String
         
         if (fullscreen != "true") {
+            
             self.contentFrame.origin.x = 0
             self.contentFrame.origin.y = self.navigationController.navigationBar.frame.size.height
             self.contentFrame.size.height += self.navigationController.navigationBar.frame.size.height
             super.update()
+        } else {
+            //PolymerNative.instance.rootPNView.renderedComponent.backgroundColor = UIColor.blueColor()
+            //self.navigationController.navigationBar.removeFromSuperview()
+            //UIApplication.sharedApplication().windows.last?.addSubview(self.navigationController.navigationBar)
         }
+        
+        self.navigationController.navigationBarHidden = true
     }
     
     override func initializeListeners() {
@@ -53,11 +61,16 @@ class PNRouter : PNView, UINavigationControllerDelegate {
         
         let viewControllers = self.navigationController.viewControllers;
         
+        //Means this is a back navigation
         if (self.viewControllerCount > viewControllers.count) {
             PNUtils.backHistory()
+            
+            //1 Since we performing check before view controller is removed
+            let hideFirstBar = self.getAttribute("hideFirstBar") == "true"
+            let isFirstInStack = self.navigationController.viewControllers.count == 1
+            self.navigationController.navigationBarHidden = isFirstInStack && hideFirstBar
         }
         
         self.viewControllerCount = viewControllers.count;
-        
     }
 }

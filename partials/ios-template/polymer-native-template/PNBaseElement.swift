@@ -80,6 +80,26 @@ class PNBaseElement : NSObject {
         self.renderedComponent.removeFromSuperview()
     }
     
+    func getStyle(name: String)-> String {
+        let value = (self.properties["style"] as! NSDictionary)[name]
+        
+        if (value != nil) {
+            return value as! String
+        } else {
+            return ""
+        }
+    }
+    
+    func getAttribute(name: String)-> String {
+        let value = (self.properties["attributes"] as! NSDictionary)[name]
+        
+        if (value != nil) {
+            return value as! String
+        } else {
+            return ""
+        }
+    }
+    
     static func getById(id: String) -> PNBaseElement {
         return PNBaseElement.elements[id]!
     }

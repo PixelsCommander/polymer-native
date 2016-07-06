@@ -19,7 +19,10 @@ proto.attachedCallback = function () {
     //this.style.visibility = 'visible';
 
     this.initPathRegexp();
-    this.router = this.findRouter();
+    this.router = this.getParent(function(parent){
+        return parent && parent.tagName.toLowerCase() === 'native-router';
+    });
+
     this.router.registerRoute(this);
 
     var self = this;
@@ -56,20 +59,6 @@ proto.initPathRegexp = function () {
 
     if (path) {
         this.pathRegexp = pathToRegexp(path);
-    }
-}
-
-proto.findRouter = function () {
-    var parent = this;
-
-    while (parent) {
-        parent = parent.parentNode;
-
-        if (parent && parent.tagName.toLowerCase() === 'native-router') {
-            return parent;
-        } else if (parent === window.document) {
-            return null;
-        }
     }
 }
 

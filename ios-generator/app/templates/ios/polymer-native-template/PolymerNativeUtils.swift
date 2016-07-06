@@ -52,7 +52,7 @@ class PNUtils: NSObject {
         }
         
         return false
-    }
+    } 
     
     static func backgroundColorFromProperties(properties: NSDictionary) -> UIColor {
         

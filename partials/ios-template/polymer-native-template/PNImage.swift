@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PNImg : PNBaseElement {
+class PNImage : PNBaseElement {
     
     override func create() {
         self.renderedComponent = UIImageView()
