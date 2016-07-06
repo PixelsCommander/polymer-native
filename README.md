@@ -72,6 +72,14 @@ Running project on iOS
 
 Open project in x-code and run it with cmd+r
 
+Contributor guide
+-----------------
+
+Fork, clone and run ```npm install``` in project folder.
+Run ```gulp``` to start continous build with watchers which will run build every time you edit project files.
+Test by opening ```./partials/www/index.html``` in browser.
+After changes are made create PR into original repository.
+
 License
 -------
 MIT: http://mit-license.org/
