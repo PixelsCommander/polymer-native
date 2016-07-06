@@ -20,7 +20,7 @@ var Router = (function (_RebelRouter) {
     };
 
     Router.prototype.attachedCallback = function() {
-        PnBaseElement.attachedCallback.call(this);
+        PnBaseElement.attachedCallback.apply(this);
     };
 
     return Router;

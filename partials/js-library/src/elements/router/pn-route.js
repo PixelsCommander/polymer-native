@@ -16,7 +16,15 @@ var Route = (function (_RebelRoute) {
     };
 
     Route.prototype.attachedCallback = function() {
-        PnBaseElement.attachedCallback.call(this);
+        var $scope = this;
+        PnBaseElement.attachedCallback.apply(this);
+        if (window.polymerNativeHost) {
+            window.polymerNativeHost.activateRoute($scope.polymerNative.id);
+        }
+    };
+
+    Route.prototype.detachedCallback = function() {
+        PnBaseElement.detachedCallback.apply(this);
     };
 
     return Route;
