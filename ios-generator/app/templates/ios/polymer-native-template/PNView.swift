@@ -18,11 +18,7 @@ class PNView : PNInteractiveElement {
     
     func resize() {
         var totalHeight:CGFloat = self.renderedComponent.frame.height;
-        for view in self.renderedComponent.subviews {
-            if (self is PNRoute) {
-                print(view.frame.origin.y + view.frame.size.height);
-            }
-            
+        for view in self.renderedComponent.subviews {            
             if (totalHeight < view.frame.origin.y + view.frame.size.height) {
                 totalHeight = view.frame.origin.y + view.frame.size.height;
             }
@@ -34,7 +30,7 @@ class PNView : PNInteractiveElement {
             self.renderedComponent.frame.size.height = totalHeight
         }
         
-        print("Resized " + (self.properties["tagName"] as! String) + " " + totalHeight.description)
+        //print("Resized " + (self.properties["tagName"] as! String) + " " + totalHeight.description)
         
         if (self.parentPNView != nil) {
             (self.parentPNView as! PNView).resize()

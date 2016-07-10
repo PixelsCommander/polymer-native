@@ -94,7 +94,7 @@ class PolymerNative : NSObject {
             } else {
                 //Otherwise push
                 navigationController.pushViewController(element.viewController, animated: !isFirstInStack)
-                navigationController.navigationBarHidden = isFirstInStack && hideFirstBar
+                navigationController.setNavigationBarHidden(isFirstInStack && hideFirstBar, animated: true)
             }
         }
     }
