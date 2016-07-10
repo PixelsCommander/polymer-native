@@ -25,6 +25,12 @@ class PNUtils: NSObject {
         PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
     }
     
+    static func callMethodOnDOM(elementId: String, methodName: String) {
+        
+        let jsCommand = "window.polymerNativeClient.callMethod('" + elementId + "', '" + methodName + "')"
+        PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
+    }
+    
     static func callMethodOnDOM(elementId: String, methodName: String, argument: String) {
         
         let jsCommand = "window.polymerNativeClient.callMethod('" + elementId + "', '" + methodName + "', '" + argument + "')"
@@ -95,6 +101,35 @@ class PNUtils: NSObject {
         }
         
         return result
+    }
+    
+    static func contentAlignFromProperties(properties: NSDictionary) -> UIControlContentHorizontalAlignment {
+        
+        let style = properties["style"] as! NSDictionary
+        let propertyValue = style["textAlign"] as! String
+        
+        var result = UIControlContentHorizontalAlignment.Left
+        
+        if (propertyValue == "center") {
+            result = UIControlContentHorizontalAlignment.Center
+        }
+        
+        if (propertyValue == "right") {
+            result = UIControlContentHorizontalAlignment.Right
+        }
+        
+        return result
+    }
+    
+    static func edgeInsetsFromProperties(properties: NSDictionary) -> UIEdgeInsets {
+        
+        let style = properties["style"] as! NSDictionary
+        let paddingLeft = CGFloat((style["paddingLeft"]?.floatValue)!)
+        let paddingRight = CGFloat((style["paddingRight"]?.floatValue)!)
+        let paddingTop = CGFloat((style["paddingTop"]?.floatValue)!)
+        let paddingBottom = CGFloat((style["paddingBottom"]?.floatValue)!)
+        
+        return UIEdgeInsetsMake(paddingTop, paddingLeft, paddingBottom, paddingRight)
     }
     
     static func colorFromCSSProperty(propertyValue: String) -> UIColor {

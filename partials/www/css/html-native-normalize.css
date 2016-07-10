@@ -48,6 +48,12 @@ native-route {
     width: 100%;
 }
 
+native-navbar {
+    //position: fixed;
+    //left: 0px;
+    //top: 0px;
+}
+
 native-label {
     display: block;
     padding: 0px;

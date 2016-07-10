@@ -18,6 +18,11 @@ class PNImage : PNBaseElement {
     override func update() {
         super.update()
         
+        let paddings = PNUtils.edgeInsetsFromProperties(self.properties)
+        
+        self.renderedComponent.frame.size.width -= paddings.left + paddings.right
+        self.renderedComponent.frame.size.height -= paddings.bottom + paddings.top
+        
         //Image source
         let src = PNUtils.webPathToAppPath(self.properties["src"] as! String)
         let image = UIImage(named:src)

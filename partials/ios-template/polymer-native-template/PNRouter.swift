@@ -21,14 +21,27 @@ class PNRouter : PNView, UINavigationControllerDelegate {
         
         self.renderedComponent = self.navigationController.view
         self.navigationController.delegate = self
-        //self.navigationController.automaticallyAdjustsScrollViewInsets = false;
+        self.navigationController.automaticallyAdjustsScrollViewInsets = false
+        self.navigationController.navigationBar.translucent = false
+    }
+    
+    override func resize() {
+        let totalHeight:CGFloat = PolymerNative.instance.webview.scrollView.contentSize.height
+            
+        if (self.renderedComponent is UIScrollView) {
+            (self.renderedComponent as! UIScrollView).contentSize.height = totalHeight
+        } else {
+            self.renderedComponent.frame.size.height = totalHeight
+        }
+            
+        //print("Resized " + (self.properties["tagName"] as! String) + " " + totalHeight.description)
     }
     
     override func update() {
         
         self.contentFrame = PNUtils.rectFromProperties(self.properties)
         
-        let fullscreen = (self.properties["attributes"] as! NSDictionary)["fullscreen"] as! String
+        let fullscreen = self.getAttribute("fullscreen")
         
         if (fullscreen != "true") {
             
@@ -36,10 +49,6 @@ class PNRouter : PNView, UINavigationControllerDelegate {
             self.contentFrame.origin.y = self.navigationController.navigationBar.frame.size.height
             self.contentFrame.size.height += self.navigationController.navigationBar.frame.size.height
             super.update()
-        } else {
-            //PolymerNative.instance.rootPNView.renderedComponent.backgroundColor = UIColor.blueColor()
-            //self.navigationController.navigationBar.removeFromSuperview()
-            //UIApplication.sharedApplication().windows.last?.addSubview(self.navigationController.navigationBar)
         }
         
         self.navigationController.navigationBarHidden = true
@@ -51,9 +60,16 @@ class PNRouter : PNView, UINavigationControllerDelegate {
     }
     
     override func mount() {
-
+        
+        let fullscreen = self.getAttribute("fullscreen")
+        
         PolymerNative.instance.rootController.addChildViewController(self.navigationController)
         PolymerNative.instance.rootPNView.renderedComponent.addSubview(self.navigationController.view)
+        
+        //if (fullscreen == "true") {
+            //PolymerNative.instance.rootPNView.setRootView(self.navigationController.view)
+        //}
+        
         self.initializeListeners()
     }
     
@@ -66,7 +82,7 @@ class PNRouter : PNView, UINavigationControllerDelegate {
             PNUtils.backHistory()
             
             //1 Since we performing check before view controller is removed
-            let hideFirstBar = self.getAttribute("hideFirstBar") == "true"
+            let hideFirstBar = self.getAttribute("hidefirstbar") == "true"
             let isFirstInStack = self.navigationController.viewControllers.count == 1
             self.navigationController.navigationBarHidden = isFirstInStack && hideFirstBar
         }

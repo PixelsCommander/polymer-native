@@ -25,18 +25,22 @@ PnBaseElement.detachedCallback = function () {
 }
 
 PnBaseElement.update = function (recursive) {
-    this.updateSerializedProperties();
-    if (window.polymerNativeHost) {
-        polymerNativeHost.updateElement(this.polymerNative.serializedProperties);
-    }
-    if (recursive) {
-        for (var i = 0; i < this.childNodes.length; i++) {
-            var childNode = this.childNodes[i];
-            if (childNode.polymerNative) {
-                childNode.update(recursive);
+    var self = this;
+
+    setTimeout(function () {
+        self.updateSerializedProperties();
+        if (window.polymerNativeHost) {
+            polymerNativeHost.updateElement(self.polymerNative.serializedProperties);
+        }
+        if (recursive) {
+            for (var i = 0; i < self.childNodes.length; i++) {
+                var childNode = self.childNodes[i];
+                if (childNode.polymerNative) {
+                    childNode.update(recursive);
+                }
             }
         }
-    }
+    }, 0)
 }
 
 PnBaseElement.updateSerializedProperties = function () {

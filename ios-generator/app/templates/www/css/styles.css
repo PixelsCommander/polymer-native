@@ -1,33 +1,160 @@
 body {
-    background-color: #322332;
-    color: white;
+    background-color: #ffffff;
+    color: #0000000;
     margin: 0;
     padding: 0;
 }
 
 .navbar {
-    background-color: #981118;
+    background-color: #00AADD;
     color: white;
+    font-size: 20px;
 }
 
-h1 {
-    font-size: 24px;
-}
-
-.top-menu {
-    padding-top: 40px;
-    background-color: #981118;
+button {
+    position: relative;
     width: 100%;
-    height: 70px;
+    background: transparent;
+    color:#000000;
+    font-size: 17px;
+    text-align: left;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 50px;
+    line-height: 15px;
 }
 
-.top-menu--item {
-    display: inline-block;
-    width: 15%;
+button>img {
+    float: right;
+}
+
+native-route[path='/'] {
+    background-image: url('../img/background.png');
+    background-repeat: repeat-x;
+}
+
+native-route[path='#services'] .content {
+    margin-top: 50px;
+}
+
+.content {
+    background-color: #ffffff;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+native-route {
+    padding-top: 20px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    color: #224499;
+    font-size: 17px;
+    line-height: 50px;
+    padding-bottom: 25px;
+}
+
+.call-help {
+    margin-top: 25px;
+    width: 70%;
+    background-color: #00AADD;
+    color: #ffffff;
     text-align: center;
 }
 
-.top-menu--item--icon {
+.call-price {
+    color: #666666;
+    padding-top: 10px;
+    font-size: 11px;
+}
+
+input[is='native-input'] {
+    width: 100%;
+}
+
+.form-header {
+    font-size: 15px;
+    color: #224499;
+    text-align: left;
+    line-height: 20px;
+}
+
+.form-data {
+    font-size: 13px;
+    color: #666666;
+    text-align: left;
+    line-height: 20px;
+}
+
+.form-label {
+    text-align: left;
+    font-size: 13px;
+    color: #999999;
+}
+
+.form-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #DDDDEE;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.checkbox-line {
+    padding: 25px;
+    height: 25px;
+    line-height: 25px;
+    position: relative;
+}
+
+.checkbox-line>native-label {
+    vertical-align: top;
+    float: left;
+    line-height: normal;
+}
+
+input[type='checkbox'] {
+    float: right;
+    margin-right: 35px;
+    height: 20px;
+}
+
+.half-line {
+    width: 50%;
     display: inline-block;
-    transform: scaleX(0.5) scaleY(0.5);
+    text-align: center;
+}
+
+.blue-button {
+    background-color: #00AADD;
+    color: #ffffff;
+}
+
+.white-button {
+    background-color: #ffffff;
+    color: #00AADD;
+    border: 1px solid #00AADD;
+}
+
+.list-icon {
+    float: left;
+    padding-right: 20px;
+    margin-top: -10px;
+}
+
+.round-balance {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    border: 4px solid #CC0022;
+}
+
+.round-balance .balance-header {
+    height: 200px;
+    line-height: 200px;
+    font-size: 48px;
 }

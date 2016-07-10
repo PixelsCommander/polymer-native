@@ -10,28 +10,34 @@ import Foundation
 import UIKit
 import WebKit
 
-class PNView : PNBaseElement {
+class PNView : PNInteractiveElement {
 
     override func create() {
-        self.renderedComponent = UIScrollView()
+        self.renderedComponent = UIView()
     }
     
     func resize() {
-        var totalHeight:CGFloat = 0.0;
+        var totalHeight:CGFloat = self.renderedComponent.frame.height;
         for view in self.renderedComponent.subviews {
+            if (self is PNRoute) {
+                print(view.frame.origin.y + view.frame.size.height);
+            }
+            
             if (totalHeight < view.frame.origin.y + view.frame.size.height) {
                 totalHeight = view.frame.origin.y + view.frame.size.height;
             }
         }
         
-        totalHeight = 2000;
-        
         if (self.renderedComponent is UIScrollView) {
-                (self.renderedComponent as! UIScrollView).contentSize.height = totalHeight
+            (self.renderedComponent as! UIScrollView).contentSize.height = totalHeight
+        } else {
+            self.renderedComponent.frame.size.height = totalHeight
         }
         
-        if (self.renderedComponent is UIView) {
-            self.renderedComponent.frame.size.height = totalHeight
+        print("Resized " + (self.properties["tagName"] as! String) + " " + totalHeight.description)
+        
+        if (self.parentPNView != nil) {
+            (self.parentPNView as! PNView).resize()
         }
     }
     
@@ -41,6 +47,7 @@ class PNView : PNBaseElement {
         element.create()
         element.update()
         element.mount()
+        self.resize()
     }
     
     func unmountChild(element: PNBaseElement) {

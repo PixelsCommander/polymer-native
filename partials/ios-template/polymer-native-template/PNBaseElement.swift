@@ -72,7 +72,13 @@ class PNBaseElement : NSObject {
     }
     
     func mount() {
-        self.parentView.addSubview(self.renderedComponent)
+        let position = self.getStyle("position")
+        if (position != "fixed") {
+            self.parentView.addSubview(self.renderedComponent)
+        } else {
+            UIApplication.sharedApplication().windows.last?.addSubview(self.renderedComponent)
+        }
+        
         self.initializeListeners()
     }
     

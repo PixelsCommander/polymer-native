@@ -24,14 +24,11 @@ proto.initHistory = function () {
     window.addEventListener('popstate', this.onHistoryChanged.bind(this));
 }
 
-proto.onHistoryChanged = function (historyState, route) {
+proto.onHistoryChanged = function (event) {
     var result = null;
     var routeToActivate = null;
 
-    if (route) {
-        result = location.hash.match(route.pathRegexp);
-        result && result.length && (routeToActivate = route);
-    } else if (this.routes) {
+    if (this.routes) {
         this.routes.forEach(function (route) {
             result = location.hash.match(route.pathRegexp);
             result && result.length && (routeToActivate = route);
@@ -39,8 +36,6 @@ proto.onHistoryChanged = function (historyState, route) {
     }
 
     routeToActivate && this.activateRoute(routeToActivate);
-
-    this.historyState = historyState;
 }
 
 proto.registerRoute = function (route) {

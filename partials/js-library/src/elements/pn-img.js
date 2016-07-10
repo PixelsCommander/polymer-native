@@ -9,11 +9,9 @@ proto.createdCallback = function () {
 }
 
 proto.attachedCallback = function () {
-    if (this.loaded) {
-        PnBaseElement.attachedCallback.apply(this);
-    } else {
-        self.addEventListener('load', PnBaseElement.attachedCallback.bind(this));
-    }
+
+    PnBaseElement.attachedCallback.apply(this);
+    self.addEventListener('load', PnBaseElement.attachedCallback.bind(this));
 }
 
 PnUtils.register('image', {

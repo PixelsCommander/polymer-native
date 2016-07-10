@@ -7,7 +7,7 @@ proto = Object.assign(proto, PnBaseElement);
 
 proto.createdCallback = function () {
     PnBaseElement.createdCallback.apply(this);
-    this.style.display = 'none';
+    //this.style.display = 'none';
 }
 
 PnUtils.register('navbar', {

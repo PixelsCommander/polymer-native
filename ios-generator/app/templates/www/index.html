@@ -7,40 +7,75 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-<native-view class="top-menu">
-    <div class="top-menu--item"><img is="native-image" class="top-menu--item--icon" src="./img/earth.png"/></div>
-    <div class="top-menu--item"><img is="native-image" class="top-menu--item--icon" src="./img/shield.png"/></div>
-    <div class="top-menu--item"><img is="native-image" class="top-menu--item--icon" src="./img/diagram.png"/></div>
-    <div class="top-menu--item"><img is="native-image" class="top-menu--item--icon" src="./img/point.png"/></div>
-    <div class="top-menu--item"><img is="native-image" class="top-menu--item--icon" src="./img/wifi.png"/></div>
-    <div class="top-menu--item"><img is="native-image" class="top-menu--item--icon" src="./img/diagnostics.png"/></div>
-</native-view>
-
-<native-router fullscreen="true">
-    <native-navbar class="navbar">
-
-    </native-navbar>
-    <native-route path="/" title="Main page" id="main-page">
-        <h1 is="native-label">
-            Top tip!
-        </h1>
-        <native-label class="description">
-            Lenna or Lena is the name given to a standard test image widely used in the field of image processing since 1973.[1] It is a picture of Lena Soderberg, shot by photographer Dwight Hooker, cropped from the centerfold of the November 1972 issue of Playboy magazine.
-        </native-label>
-        <button is="native-button" onclick="location.hash = 'lena'">To second page</button>
-    </native-route>
-    <native-route path="#lena" title="Controls" id="form-page">
-        <input id="submit-input-native" is="native-input" value="Native input"></input>
-        <div class="checkbox-line">
-            <native-label class="checkbox-label">My checkbox</native-label><input checked="true" type="checkbox" is="native-checkbox" id="checkbox-native" selected="false"/>
-        </div>
-        <button onclick="alert(document.getElementById('submit-input-native').value);" is="native-button">Alert native input</button>
-        <button onclick="document.getElementById('blue-div').parentNode.removeChild(document.getElementById('blue-div'))" is="native-button">Remove blue div</button>
-        <native-view id="blue-div"></native-view>
-        <native-view id="red-div">
-            <button is="native-button">Inner button</button>
+<native-router fullscreen="true" hideFirstBar="true">
+    <native-navbar class="navbar"></native-navbar>
+    <native-route path="/" title="Main page">
+        <img is="native-image" src="./img/upc.png">
+        <native-view class="content">
+            <native-label class="header">
+                My UPC
+            </native-label>
+            <button is="native-button" onclick="location.hash = 'profile'">Profile<img is="native-image" src="./img/arrow.png"></button>
+            <native-view class="form-divider"></native-view>
+            <button is="native-button" onclick="location.hash = 'services'">Services<img is="native-image" src="./img/arrow.png"></button>
+            <native-view class="form-divider"></native-view>
+            <button is="native-button" onclick="location.hash = 'balance'">Balance<img is="native-image" src="./img/arrow.png"></button>
         </native-view>
+        <button is="native-button" class="call-help" onclick="alert('Calling helpdesk')">Call the helpdesk</button>
+        <native-label class="call-price">zt 0,25 p/m + costs from your mobile provider</native-label>
+    </native-route>
+    <native-route path="#profile" title="Profile">
+        <img is="native-image" src="./img/top.png">
+        <native-view class="content">
+            <native-label class="form-header">
+                Contract holder:
+            </native-label>
+            <native-label class="form-data">
+                Mickey O`Mallory
+            </native-label>
+            <native-view class="form-divider"></native-view>
+
+            <native-label class="form-label">E-Mail:</native-label>
+            <input is="native-input" value="some.email@gmail.com"/>
+            <native-label class="form-label">Phone:</native-label>
+            <input is="native-input" value="+31638482851"/>
+            <native-view class="form-divider"></native-view>
+
+            <div class="checkbox-line">
+                <native-label>Automatic charging</native-label><input type="checkbox" is="native-checkbox" checked="true">
+            </div>
+
+            <button is="native-button" class="half-line white-button" onclick="window.history.back();">Cancel</button><button is="native-button" class="half-line blue-button" onclick="alert('Profile saved')">Save</button>
+        </native-view>
+    </native-route>
+    <native-route path="#services" title="Services">
+        <img is="native-image" src="./img/services.png">
+        <native-view class="content">
+            <div class="checkbox-line">
+                <img class="list-icon" is="native-image" src="./img/mobile.png"><native-label>Mobile</native-label><input type="checkbox" is="native-checkbox" checked="false">
+            </div>
+
+            <div class="checkbox-line">
+                <img class="list-icon" is="native-image" src="./img/phone.png"><native-label>Phone</native-label><input type="checkbox" is="native-checkbox" checked="true">
+            </div>
+
+            <div class="checkbox-line">
+                <img class="list-icon" is="native-image" src="./img/fiber.png"><native-label>Fiber, 120 MB/s</native-label><input type="checkbox" is="native-checkbox" checked="true">
+            </div>
+
+            <div class="checkbox-line">
+                <img class="list-icon" is="native-image" src="./img/tv.png"><native-label>TV</native-label><input type="checkbox" is="native-checkbox" checked="true">
+            </div>
+        </native-view>
+    </native-route>
+    <native-route path="#balance" title="Balance">
+        <native-view class="round-balance">
+            <native-label class="balance-header">
+                0,0 &#8364;
+            </native-label>
+        </native-view>
+        <button is="native-button" class="call-help" onclick="alert('Charging balance is impossible')">Charge</button>
+        <native-label class="call-price">Your bank may charge transfer fee</native-label>
     </native-route>
 </native-router>
 </body>
