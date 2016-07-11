@@ -9,22 +9,7 @@
 <body>
 <native-router fullscreen="true" hideFirstBar="true">
     <native-navbar class="navbar"></native-navbar>
-    <native-route path="/" title="Main page">
-        <img is="native-image" src="./img/upc.png">
-        <native-view class="content">
-            <native-label class="header">
-                My UPC
-            </native-label>
-            <button is="native-button" onclick="location.hash = 'profile'">Profile<img is="native-image" src="./img/arrow.png"></button>
-            <native-view class="form-divider"></native-view>
-            <button is="native-button" onclick="location.hash = 'services'">Services<img is="native-image" src="./img/arrow.png"></button>
-            <native-view class="form-divider"></native-view>
-            <button is="native-button" onclick="location.hash = 'balance'">Balance<img is="native-image" src="./img/arrow.png"></button>
-        </native-view>
-        <button is="native-button" class="call-help" onclick="alert('Calling helpdesk')">Call the helpdesk</button>
-        <native-label class="call-price">zt 0,25 p/m + costs from your mobile provider</native-label>
-    </native-route>
-    <native-route path="#profile" title="Profile">
+    <native-route path="/profile" title="Profile">
         <img is="native-image" src="./img/top.png">
         <native-view class="content">
             <native-label class="form-header">
@@ -48,7 +33,7 @@
             <button is="native-button" class="half-line white-button" onclick="window.history.back();">Cancel</button><button is="native-button" class="half-line blue-button" onclick="alert('Profile saved')">Save</button>
         </native-view>
     </native-route>
-    <native-route path="#services" title="Services">
+    <native-route path="/services" title="Services">
         <img is="native-image" src="./img/services.png">
         <native-view class="content">
             <div class="checkbox-line">
@@ -68,7 +53,7 @@
             </div>
         </native-view>
     </native-route>
-    <native-route path="#balance" title="Balance">
+    <native-route path="/balance" title="Balance">
         <native-view class="round-balance">
             <native-label class="balance-header">
                 0,0 &#8364;
@@ -77,6 +62,21 @@
         <button is="native-button" class="call-help" onclick="alert('Charging balance is impossible')">Charge</button>
         <native-label class="call-price">Your bank may charge transfer fee</native-label>
     </native-route>
+    <native-default title="Main page">
+        <img is="native-image" src="./img/upc.png">
+        <native-view class="content">
+            <native-label class="header">
+                My UPC
+            </native-label>
+            <button is="native-button" onclick="location.hash = '/profile'">Profile<img is="native-image" src="./img/arrow.png"></button>
+            <native-view class="form-divider"></native-view>
+            <button is="native-button" onclick="location.hash = '/services'">Services<img is="native-image" src="./img/arrow.png"></button>
+            <native-view class="form-divider"></native-view>
+            <button is="native-button" onclick="location.hash = '/balance'">Balance<img is="native-image" src="./img/arrow.png"></button>
+        </native-view>
+        <button is="native-button" class="call-help" onclick="alert('Calling helpdesk')">Call the helpdesk</button>
+        <native-label class="call-price">zt 0,25 p/m + costs from your mobile provider</native-label>
+    </native-default>
 </native-router>
 </body>
 </html>

@@ -5,24 +5,22 @@ PnBaseElement.createdCallback = function () {
     this.polymerNative = {};
     this.polymerNative.id = polymerNativeClient.utils.getNextId();
     elements[this.polymerNative.id] = this;
-}
+};
 
 PnBaseElement.attachedCallback = function () {
     var self = this;
-    setTimeout(function () {
-        self.updateSerializedProperties();
-        if (window.polymerNativeHost) {
-            self.style.visibility = 'hidden';
-            polymerNativeHost.createElement(self.polymerNative.serializedProperties);
-        }
-    }, 0);
-}
+    self.updateSerializedProperties();
+    if (window.polymerNativeHost) {
+        self.style.visibility = 'hidden';
+        polymerNativeHost.createElement(self.polymerNative.serializedProperties);
+    }
+};
 
 PnBaseElement.detachedCallback = function () {
     if (window.polymerNativeHost) {
         polymerNativeHost.removeElement(this.polymerNative.id);
     }
-}
+};
 
 PnBaseElement.update = function (recursive) {
     var self = this;
@@ -41,17 +39,17 @@ PnBaseElement.update = function (recursive) {
             }
         }
     }, 0)
-}
+};
 
 PnBaseElement.updateSerializedProperties = function () {
     this.polymerNative.serializedProperties = JSON.stringify(polymerNativeClient.utils.getElementProperties(this));
-}
+};
 
 PnBaseElement.getPNParent = function () {
     return this.getParent(function(parent){
         return parent && parent.polymerNative;
     });
-}
+};
 
 PnBaseElement.getParent = function (predicate) {
     var parent = this;
@@ -65,7 +63,7 @@ PnBaseElement.getParent = function (predicate) {
             return null;
         }
     }
-}
+};
 
 window.polymerNativeClient = window.polymerNativeClient || {};
 window.polymerNativeClient.elements = elements;
@@ -81,7 +79,7 @@ PnBaseElement.onResize = function () {
             element.update();
         }
     }, 0);
-}
+};
 
 PnBaseElement.onMutations = function (mutations) {
     console.log('Get mutations');
@@ -96,7 +94,7 @@ PnBaseElement.onMutations = function (mutations) {
             mutation.target.update(structureChanged);
         }
     }
-}
+};
 
 PnBaseElement.initializeObserver = function () {
     var self = this,
@@ -109,7 +107,7 @@ PnBaseElement.initializeObserver = function () {
 
     this.observer = this.observer || new MutationObserver(PnBaseElement.onMutations);
     this.observer.observe(document.body, config);
-}
+};
 
 window.addEventListener('load', PnBaseElement.initializeObserver);
 window.addEventListener('orientationchange', PnBaseElement.onResize);

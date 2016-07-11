@@ -1,67 +1,37 @@
-var pathToRegexp = require('path-to-regexp');
+var RebelRoute = require('../../../../../node_modules/rebel-router/es5/rebel-router.js').RebelRoute;
 var PnBaseElement = require('../base/pn-base-element.js');
 var PnUtils = require('../../pn-utils.js');
 
-var proto = Object.create(HTMLDivElement.prototype);
-proto = Object.assign(proto, PnBaseElement);
+var Route = (function (_RebelRoute) {
 
-proto.createdCallback = function () {
-    PnBaseElement.createdCallback.apply(this);
+    Route.prototype = Object.create(_RebelRoute.prototype);
+    Route.prototype = Object.assign(Route.prototype, PnBaseElement);
 
-    var self = this;
-    this.activationPromise = new Promise(function(resolve, reject) {
-        self.activationPromiseResolve = resolve;
-    });
-}
+    function Route() {
+        return Object.getPrototypeOf(Route).apply(this);
+    }
 
-proto.attachedCallback = function () {
-    PnBaseElement.attachedCallback.apply(this);
-    //this.style.visibility = 'visible';
+    Route.prototype.createdCallback = function() {
+        PnBaseElement.createdCallback.apply(this);
+    };
 
-    this.initPathRegexp();
-    this.router = this.getParent(function(parent){
-        return parent && parent.tagName.toLowerCase() === 'native-router';
-    });
-
-    this.router.registerRoute(this);
-
-    var self = this;
-
-    setTimeout(function(){
-        self.activationPromiseResolve();
-    }, 100);
-}
-
-proto.activate = function (skipNative) {
-    var self = this;
-
-    this.activationPromise.then(function(){
-        console.log('Activating ' + self.id + ' , skipping native = ' + skipNative);
+    Route.prototype.attachedCallback = function() {
+        var $scope = this;
+        PnBaseElement.attachedCallback.apply(this);
         if (window.polymerNativeHost) {
-            if (!skipNative) {
-                window.polymerNativeHost.activateRoute(self.polymerNative.id);
-            }
-        } else {
-            self.style.visibility = 'visible';
+            window.polymerNativeHost.activateRoute($scope.polymerNative.id);
         }
-    });
-}
+    };
 
-proto.deactivate = function (skipNative) {
-    console.log('Deactivating ' + this.id + ' , skipping native = ' + skipNative);
-    if (!window.polymerNativeHost && !skipNative) {
-        this.style.visibility = 'hidden';
-    }
-}
+    Route.prototype.detachedCallback = function() {
+        PnBaseElement.detachedCallback.apply(this);
+    };
 
-proto.initPathRegexp = function () {
-    var path = this.getAttribute('path');
+    return Route;
 
-    if (path) {
-        this.pathRegexp = pathToRegexp(path);
-    }
-}
+})(RebelRoute);
 
 PnUtils.register('route', {
-    prototype: proto
+    prototype: Route.prototype
 });
+

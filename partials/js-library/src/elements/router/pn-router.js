@@ -1,72 +1,41 @@
-var History = require('history');
+var RebelRouter = require('../../../../../node_modules/rebel-router/es5/rebel-router.js').RebelRouter;
 var PnBaseElement = require('../base/pn-base-element.js');
 var PnUtils = require('../../pn-utils.js');
 
 //polymerNativeClient should be global to be able to call it from native code
 window.polymerNativeClient = window.polymerNativeClient || {};
 
-var syncingHistoryWithNative = false;
-var proto = Object.create(HTMLDivElement.prototype);
-proto = Object.assign(proto, PnBaseElement);
+var Router = (function (_RebelRouter) {
 
-proto.createdCallback = function () {
-    PnBaseElement.createdCallback.apply(this);
-    this.activeRoute = null;
-    this.initHistory();
-}
+    Router.prototype = Object.create(_RebelRouter.prototype);
+    Router.prototype = Object.assign(Router.prototype, PnBaseElement);
 
-proto.attachedCallback = function () {
-    PnBaseElement.attachedCallback.apply(this);
-    this.style.visibility = 'visible';
-}
-
-proto.initHistory = function () {
-    window.addEventListener('popstate', this.onHistoryChanged.bind(this));
-}
-
-proto.onHistoryChanged = function (event) {
-    var result = null;
-    var routeToActivate = null;
-
-    if (this.routes) {
-        this.routes.forEach(function (route) {
-            result = location.hash.match(route.pathRegexp);
-            result && result.length && (routeToActivate = route);
-        });
+    function Router() {
+        return Object.getPrototypeOf(Router).apply(this);
     }
 
-    routeToActivate && this.activateRoute(routeToActivate);
-}
+    Router.prototype.createdCallback = function() {
+        PnBaseElement.createdCallback.apply(this);
+        Object.getPrototypeOf(Router.prototype).createdCallback.call(this, "native");
+    };
 
-proto.registerRoute = function (route) {
-    this.routes = this.routes || [];
-    this.routes.push(route);
-    this.onHistoryChanged(this.historyState, route);
-}
+    Router.prototype.attachedCallback = function() {
+        PnBaseElement.attachedCallback.apply(this);
+    };
 
-proto.activateRoute = function (route) {
-    var self = this;
+    return Router;
 
-    this.routes.forEach(function (routeIterator) {
-        if (route === routeIterator) {
-            if (self.activeRoute !== route) {
-                self.activeRoute = route;
-                route.activate(syncingHistoryWithNative);
-            }
-        } else {
-            routeIterator.deactivate(syncingHistoryWithNative);
-        }
-    });
-}
+})(RebelRouter);
 
+var syncingHistoryWithNative = false;
 window.polymerNativeClient.back = function () {
     syncingHistoryWithNative = true;
     window.history.back();
     setTimeout(function(){
         syncingHistoryWithNative = false;
     }, 0);
-}
+};
 
 PnUtils.register('router', {
-    prototype: proto
+    prototype: Router.prototype
 });

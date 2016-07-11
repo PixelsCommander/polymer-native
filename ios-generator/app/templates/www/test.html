@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta name='viewport' content='width=device-width initial-scale=1'/>
+    <title><%= name %></title>
+    <script src="js/polymer-native.js"></script>
+    <link rel="stylesheet" href="css/html-native-normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<img is="native-img" width="256" height="256" id="icon" src="img/lenna.png"></img>
+
+<!-- <input id="submit-input" value="Web input"></input>
+<input id="submit-input-native" is="native-input" value="Native input"></input>
+<button onclick="alert(document.getElementById('submit-input').value);">Alert web input</button>
+<button onclick="alert(document.getElementById('submit-input-native').value);" is="native-button">Alert native input</button>
+<button onclick="document.getElementById('blue-div').parentNode.removeChild(document.getElementById('blue-div'))" is="native-button">Remove blue div</button>
+<native-view id="blue-div"></native-view>
+<native-view id="red-div">
+    <button is="native-button">Inner button</button>
+</native-view> -->
+
+
+<native-router fullscreen="true">
+    <native-navbar class="navbar"></native-navbar>
+    <native-route path="/" title="Main page" id="main-page">
+        <native-label class="header">
+            Lenna
+        </native-label>
+        <native-label class="description">
+            Lenna or Lena is the name given to a standard test image widely used in the field of image processing since 1973.[1] It is a picture of Lena Soderberg, shot by photographer Dwight Hooker, cropped from the centerfold of the November 1972 issue of Playboy magazine.
+        </native-label>
+        <button is="native-button" onclick="location.hash = 'lena'">To second page</button>
+    </native-route>
+    <native-route path="#lena" title="Controls" id="form-page">
+        <input id="submit-input-native" is="native-input" value="Native input"></input>
+        <div class="checkbox-line">
+            <native-label class="checkbox-label">My checkbox</native-label><input checked="true" type="checkbox" is="native-checkbox" id="checkbox-native" selected="false"/>
+        </div>
+        <button onclick="alert(document.getElementById('submit-input-native').value);" is="native-button">Alert native input</button>
+        <button onclick="document.getElementById('blue-div').parentNode.removeChild(document.getElementById('blue-div'))" is="native-button">Remove blue div</button>
+        <native-view id="blue-div"></native-view>
+        <native-view id="red-div">
+            <button is="native-button">Inner button</button>
+        </native-view>
+    </native-route>
+</native-router>
+</body>
+</html>
