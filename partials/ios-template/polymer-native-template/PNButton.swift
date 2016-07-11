@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ActionKit
 
-class PNButton : PNInteractiveElement {
+class PNButton : PNView {
     
     override func create() {
         self.renderedComponent = UIButton(type: UIButtonType.System)
@@ -29,5 +29,11 @@ class PNButton : PNInteractiveElement {
         //Title font
         let fontSize = PNUtils.fontSizeFromProperties(self.properties)
         (self.renderedComponent as! UIButton).titleLabel?.font = UIFont(name: "HelveticaNeue", size: CGFloat(fontSize))
+        
+        //Aligment
+        (self.renderedComponent as! UIButton).contentHorizontalAlignment = PNUtils.contentAlignFromProperties(self.properties)
+        
+        //Paddings
+        (self.renderedComponent as! UIButton).contentEdgeInsets = PNUtils.edgeInsetsFromProperties(self.properties)
     }
 }

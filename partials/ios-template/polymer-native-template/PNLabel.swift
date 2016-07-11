@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PNLabel : PNBaseElement {
+class PNLabel : PNView {
     
     override func create() {
         self.renderedComponent = UILabel()
@@ -18,9 +18,15 @@ class PNLabel : PNBaseElement {
     override func update() {
         super.update()
         
+        let paddings = PNUtils.edgeInsetsFromProperties(self.properties)
+        
+        self.renderedComponent.frame.origin.x += paddings.left
+        self.renderedComponent.frame.origin.y += paddings.top
+        
         //Title text
-        let title = self.properties["text"] as! String
-        (self.renderedComponent as! UILabel).text = title
+        let attributedString = NSMutableAttributedString(string: self.properties["text"] as! String)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(-0.3), range: NSRange(location: 0, length: attributedString.length))
+        (self.renderedComponent as! UILabel).attributedText = attributedString
         
         //Aligment
         (self.renderedComponent as! UILabel).textAlignment = PNUtils.textAlignFromProperties(self.properties)

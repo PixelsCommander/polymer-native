@@ -9,13 +9,11 @@ PnBaseElement.createdCallback = function () {
 
 PnBaseElement.attachedCallback = function () {
     var self = this;
-    //setTimeout(function () {
-        self.updateSerializedProperties();
-        if (window.polymerNativeHost) {
-            self.style.visibility = 'hidden';
-            polymerNativeHost.createElement(self.polymerNative.serializedProperties);
-        }
-    //}, 0);
+    self.updateSerializedProperties();
+    if (window.polymerNativeHost) {
+        self.style.visibility = 'hidden';
+        polymerNativeHost.createElement(self.polymerNative.serializedProperties);
+    }
 };
 
 PnBaseElement.detachedCallback = function () {
@@ -25,18 +23,22 @@ PnBaseElement.detachedCallback = function () {
 };
 
 PnBaseElement.update = function (recursive) {
-    this.updateSerializedProperties();
-    if (window.polymerNativeHost) {
-        polymerNativeHost.updateElement(this.polymerNative.serializedProperties);
-    }
-    if (recursive) {
-        for (var i = 0; i < this.childNodes.length; i++) {
-            var childNode = this.childNodes[i];
-            if (childNode.polymerNative) {
-                childNode.update(recursive);
+    var self = this;
+
+    setTimeout(function () {
+        self.updateSerializedProperties();
+        if (window.polymerNativeHost) {
+            polymerNativeHost.updateElement(self.polymerNative.serializedProperties);
+        }
+        if (recursive) {
+            for (var i = 0; i < self.childNodes.length; i++) {
+                var childNode = self.childNodes[i];
+                if (childNode.polymerNative) {
+                    childNode.update(recursive);
+                }
             }
         }
-    }
+    }, 0)
 };
 
 PnBaseElement.updateSerializedProperties = function () {
@@ -44,12 +46,18 @@ PnBaseElement.updateSerializedProperties = function () {
 };
 
 PnBaseElement.getPNParent = function () {
+    return this.getParent(function(parent){
+        return parent && parent.polymerNative;
+    });
+};
+
+PnBaseElement.getParent = function (predicate) {
     var parent = this;
 
     while (parent) {
         parent = parent.parentNode;
 
-        if (parent && parent.polymerNative) {
+        if (predicate(parent)) {
             return parent;
         } else if (parent === window.document) {
             return null;
@@ -74,13 +82,17 @@ PnBaseElement.onResize = function () {
 };
 
 PnBaseElement.onMutations = function (mutations) {
+    console.log('Get mutations');
     for (var i = 0; i < mutations.length; i++) {
         var mutation = mutations[i];
 
         console.log('Mutated ' + mutation.target.tagName);
 
         var structureChanged = mutation.removedNodes.length || mutation.addedNodes.length;
-        mutation.target.update(structureChanged);
+
+        if (mutation.target.polymerNative) {
+            mutation.target.update(structureChanged);
+        }
     }
 };
 
@@ -90,8 +102,7 @@ PnBaseElement.initializeObserver = function () {
             childList: true,
             characterData: true,
             subtree: true,
-            attributes: true,
-            attributeFilter: ['style']
+            attributes: true
         };
 
     this.observer = this.observer || new MutationObserver(PnBaseElement.onMutations);

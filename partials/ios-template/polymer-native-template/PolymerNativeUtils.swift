@@ -25,6 +25,12 @@ class PNUtils: NSObject {
         PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
     }
     
+    static func callMethodOnDOM(elementId: String, methodName: String) {
+        
+        let jsCommand = "window.polymerNativeClient.callMethod('" + elementId + "', '" + methodName + "')"
+        PolymerNative.instance.webview.evaluateJavaScript(jsCommand, completionHandler: nil)
+    }
+    
     static func callMethodOnDOM(elementId: String, methodName: String, argument: String) {
         
         let jsCommand = "window.polymerNativeClient.callMethod('" + elementId + "', '" + methodName + "', '" + argument + "')"
@@ -39,7 +45,7 @@ class PNUtils: NSObject {
         let width = bounds["width"] as! CGFloat
         let height = bounds["height"] as! CGFloat
         
-        return CGRectMake(left, top, width + 5.0, height);
+        return CGRectMake(left, top, width, height);
     }
     
     static func visibilityFromProperties(properties: NSDictionary) -> Bool {
@@ -52,7 +58,7 @@ class PNUtils: NSObject {
         }
         
         return false
-    }
+    } 
     
     static func backgroundColorFromProperties(properties: NSDictionary) -> UIColor {
         
@@ -95,6 +101,35 @@ class PNUtils: NSObject {
         }
         
         return result
+    }
+    
+    static func contentAlignFromProperties(properties: NSDictionary) -> UIControlContentHorizontalAlignment {
+        
+        let style = properties["style"] as! NSDictionary
+        let propertyValue = style["textAlign"] as! String
+        
+        var result = UIControlContentHorizontalAlignment.Left
+        
+        if (propertyValue == "center") {
+            result = UIControlContentHorizontalAlignment.Center
+        }
+        
+        if (propertyValue == "right") {
+            result = UIControlContentHorizontalAlignment.Right
+        }
+        
+        return result
+    }
+    
+    static func edgeInsetsFromProperties(properties: NSDictionary) -> UIEdgeInsets {
+        
+        let style = properties["style"] as! NSDictionary
+        let paddingLeft = CGFloat((style["paddingLeft"]?.floatValue)!)
+        let paddingRight = CGFloat((style["paddingRight"]?.floatValue)!)
+        let paddingTop = CGFloat((style["paddingTop"]?.floatValue)!)
+        let paddingBottom = CGFloat((style["paddingBottom"]?.floatValue)!)
+        
+        return UIEdgeInsetsMake(paddingTop, paddingLeft, paddingBottom, paddingRight)
     }
     
     static func colorFromCSSProperty(propertyValue: String) -> UIColor {

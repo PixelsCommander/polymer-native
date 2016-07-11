@@ -10,3 +10,4 @@ require('./elements/pn-input.js');
 require('./elements/pn-checkbox.js');
 require('./elements/router/pn-route.js');
 require('./elements/router/pn-router.js');
+require('./elements/router/pn-navbar.js');

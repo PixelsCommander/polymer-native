@@ -24,12 +24,13 @@ class PNRoute : PNView {
         
         super.update()
     
-        let title = ((self.properties["attributes"] as! NSDictionary)["title"] as? String)
+        let title = self.getAttribute("title")
         self.viewController.title = title
         
         var frame:CGRect = PNUtils.rectFromProperties(self.properties)
         frame.origin.y = (self.parentPNView as! PNRouter).contentFrame.origin.y + frame.origin.y
         frame.origin.x = (self.parentPNView as! PNRouter).contentFrame.origin.x + frame.origin.x
+        frame.size.height = frame.size.height + (self.parentPNView as! PNRouter).navigationController.navigationBar.frame.size.height
         self.renderedComponent.frame = frame
     }
     

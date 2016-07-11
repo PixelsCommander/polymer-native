@@ -72,12 +72,38 @@ class PNBaseElement : NSObject {
     }
     
     func mount() {
-        self.parentView.addSubview(self.renderedComponent)
+        let position = self.getStyle("position")
+        if (position != "fixed") {
+            self.parentView.addSubview(self.renderedComponent)
+        } else {
+            UIApplication.sharedApplication().windows.last?.addSubview(self.renderedComponent)
+        }
+        
         self.initializeListeners()
     }
     
     func unmount() {
         self.renderedComponent.removeFromSuperview()
+    }
+    
+    func getStyle(name: String)-> String {
+        let value = (self.properties["style"] as! NSDictionary)[name]
+        
+        if (value != nil) {
+            return value as! String
+        } else {
+            return ""
+        }
+    }
+    
+    func getAttribute(name: String)-> String {
+        let value = (self.properties["attributes"] as! NSDictionary)[name]
+        
+        if (value != nil) {
+            return value as! String
+        } else {
+            return ""
+        }
     }
     
     static func getById(id: String) -> PNBaseElement {

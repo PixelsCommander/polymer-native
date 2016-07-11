@@ -31,17 +31,17 @@ var utils = {
             }
         }
 
-        console.log('Updating ' + element.tagName + ', id=' + id + ', to ' + (parent ? parent.tagName : 'root') + ' ' + parentId + ', size=' + bounds.width + 'x' + bounds.height);
-
         if (parent) {
             var parentBounds = parent.getBoundingClientRect();
             bounds = {
                 width: bounds.width,
                 height: bounds.height,
-                left: bounds.left - parentBounds.left,
-                top: bounds.top - parentBounds.top
+                left: style.position === 'fixed' ? bounds.left : bounds.left - parentBounds.left,
+                top: style.position === 'fixed' ? bounds.top : bounds.top - parentBounds.top
             }
         }
+
+        console.log('Updating ' + element.tagName + ', id=' + id + ', to ' + (parent ? parent.tagName : 'root') + ' ' + parentId + ', size=' + bounds.width + 'x' + bounds.height + ', position=' + bounds.left + ',' + bounds.top);
 
         return {
             id: id,
@@ -58,7 +58,12 @@ var utils = {
                 borderRadius: style.borderRadius,
                 borderColor: style.borderColor,
                 borderWidth: style.borderWidth,
-                textAlign: style.textAlign
+                textAlign: style.textAlign,
+                position: style.position,
+                paddingLeft: style.paddingLeft,
+                paddingRight: style.paddingRight,
+                paddingTop: style.paddingTop,
+                paddingBottom: style.paddingBottom
             },
             text: text,
             src: src,

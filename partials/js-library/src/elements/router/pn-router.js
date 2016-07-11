@@ -27,7 +27,6 @@ var Router = (function (_RebelRouter) {
 
 })(RebelRouter);
 
-//Not sure what this is for?
 var syncingHistoryWithNative = false;
 window.polymerNativeClient.back = function () {
     syncingHistoryWithNative = true;

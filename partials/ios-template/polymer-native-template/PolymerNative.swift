@@ -30,20 +30,7 @@ class PolymerNative : NSObject {
         self.rootPNView = PNRoot(id: "root", properties: nil)
         self.rootPNView.create(controller)
         
-        dispatch_async(dispatch_get_main_queue(), {
-            self.initWebView()
-        })
-    }
-    
-    func initWebView() {
         self.webview = self.rootPNView.webView as WKWebView
-        self.webview.loadPlugin(PolymerNative.instance!, namespace: "polymerNativeHost")
-        let root = NSBundle.mainBundle().resourceURL!
-        let url = root.URLByAppendingPathComponent("./www/index.html")
-        self.webview.loadFileURL(url, allowingReadAccessToURL: root)
-        
-        self.rootView.sendSubviewToBack(self.webview)
-        self.rootPNView.renderedComponent = self.webview.scrollView;
     }
     
     func createElement(elementData: AnyObject?) {
@@ -97,7 +84,18 @@ class PolymerNative : NSObject {
             let element:PNRoute = PNBaseElement.getById(id) as! PNRoute
             element.renderedComponent.hidden = false
             
-            (element.parentPNView as! PNRouter).navigationController.pushViewController(element.viewController, animated: (element.parentPNView as! PNRouter).navigationController.viewControllers.count > 0)
+            let navigationController = (element.parentPNView as! PNRouter).navigationController
+            let isFirstInStack = (element.parentPNView as! PNRouter).navigationController.viewControllers.count == 0
+            let hideFirstBar = (element.parentPNView as! PNRouter).getAttribute("hidefirstbar") == "true"
+            
+            if (navigationController.viewControllers.count > 1 && navigationController.viewControllers[navigationController.viewControllers.count - 2] == element.viewController) {
+                //If going back from JS
+                navigationController.popViewControllerAnimated(true)
+            } else {
+                //Otherwise push
+                navigationController.pushViewController(element.viewController, animated: !isFirstInStack)
+                navigationController.setNavigationBarHidden(isFirstInStack && hideFirstBar, animated: true)
+            }
         }
     }
     
