@@ -29,7 +29,7 @@ proto.attachedCallback = function () {
 
     setTimeout(function(){
         self.activationPromiseResolve();
-    }, 100);
+    }, 0);
 }
 
 proto.activate = function (skipNative) {
